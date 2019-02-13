@@ -20,7 +20,7 @@
                 <h5>Capturar Orden de Pago</h5>
             </div>
             <div class="card-body">
-                {!! Form::open(['novalidate','class'=>'needs-validation','url' => '#']) !!}
+                {!! Form::open(['novalidate','class'=>'needs-validation','route' => 'ordenes.store', 'method'=>'POST']) !!}
                     <div class="row pb-3">
                         <div class="col-9">
                             {{ Form::label('area', 'ÁREA QUE TRAMITA:') }}
