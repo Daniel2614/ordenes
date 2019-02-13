@@ -69,18 +69,36 @@
 
         <script type="text/javascript">
             function mayus(e) {
-            e.value = e.value.toUpperCase();
+                e.value = e.value.toUpperCase();
             }
-            window.laravel = {!! json_encode([
-            'csrfToken' => csrf_token(),
-            ]) !!}; 
+
             $(function (){
                 $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
                 });
             }); 
+
+            (function() {
+                'use strict';
+                window.addEventListener('load', function() {
+                    var forms = document.getElementsByClassName('form-control');
+                    var validation = Array.prototype.filter.call(forms, function(form) {
+                        form.addEventListener('focusout', function(event) {
+                            if( $(form).val() == '' ){
+                                $( '#'+$(form).attr("id") ).removeClass('is-valid');
+                                $( '#'+$(form).attr("id") ).addClass('is-invalid');
+                                $( '#error_'+$(form).attr("id") ).show();
+                            }else{
+                                $( '#'+$(form).attr("id") ).removeClass('is-invalid');
+                                $( '#'+$(form).attr("id") ).addClass('is-valid');
+                                $( '#error_'+$(form).attr("id") ).hide();
+                            }
+                        }, false);
+                    });
+                }, false);
+            })();
         </script>
         <!-- loader -->
         
