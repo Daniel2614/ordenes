@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\OrdenPago;
+use App\datos_orden;
 
 class OrdenesDePagoController extends Controller
 {
@@ -34,7 +36,19 @@ class OrdenesDePagoController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        dd($request->all());
+        $orden = new OrdenPago;
+        $orden->areaT = $request->area;
+
+
+        $orden->save();
+
+
+        $datos = new datos_orden;
+
+
+        $datos->save()
+
     }
 
     /**
