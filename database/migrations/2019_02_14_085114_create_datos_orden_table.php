@@ -15,7 +15,7 @@ class CreateDatosOrdenTable extends Migration
     {
         Schema::create('datos_orden', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('idOP')->unsigned()->nullable();
+            $table->integer('idOP')->unsigned();
             $table->foreign('idOP')->references('id')->on('orden_pago');
             $table->string('programaP');//programa presupuestal
             $table->string('noPartida');

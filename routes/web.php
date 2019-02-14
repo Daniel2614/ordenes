@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('Ordenes de pago.showOrdenesDePago');
+    return view('Ordenes de pago.documentoOrdenPago');
 });
 
 Auth::routes();

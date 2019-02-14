@@ -6,18 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class datos_orden extends Model
 {
-    protected $table = 'orden_pago';
+    protected $table = 'datos_orden';
 	  protected $fillable = [
-	  	'id',
 	    'idOP',
-		'programaP',
-		'noPartida',
-		'concepto',
-		'importeParcial',
-		'importetotal',
+			'programaP',
+			'noPartida',
+			'concepto',
+			'importeParcial',
+			'importetotal',
 	  ];
 	  public function orden()
    {
-       return $this->belongsTo('App\OrdenPago','idOP');
+       return $this->belongsTo('App\OrdenPago','idOP','id');
    }
 }

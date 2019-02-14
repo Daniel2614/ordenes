@@ -8,19 +8,18 @@ class OrdenPago extends Model
 {
      protected $table = 'orden_pago';
 	  protected $fillable = [
-	  	'id',
 	    'areaT',
-		'tipoT',
-		'noTramite',
-		'fechaEla',
-		'OC',
-		'fechaOC',
-		'recepcion',
-		'fechaRecepcion',
-		'importeOrden',
-		'nombreProveedor',
-		'rfcProveedor',
-		'organizacion',
+			'tipoT',
+			'noTramite',
+			'fechaEla',
+			'OC',
+			'fechaOC',
+			'recepcion',
+			'fechaRecepcion',
+			'importeOrden',
+			'nombreProveedor',
+			'rfcProveedor',
+			'organizacion',
 	  ];
 
 	  public function datos()

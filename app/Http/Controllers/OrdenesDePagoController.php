@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\OrdenesRequest;
 use App\OrdenPago;
 use App\datos_orden;
 
@@ -15,7 +16,7 @@ class OrdenesDePagoController extends Controller
      */
     public function index()
     {
-        //
+        return view('Ordenes de pago.showOrdenesDePago');
     }
 
     /**
@@ -34,20 +35,51 @@ class OrdenesDePagoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OrdenesRequest $request)
     {
-        dd($request->all());
-        $orden = new OrdenPago;
-        $orden->areaT = $request->area;
+        //dd($request->all());
+        $mensaje = null;
+        $data = null;
+        \DB::beginTransaction();
+        try
+        {
+            $newOrden = OrdenPago::create([
+                'areaT'             => $request->area,
+                'tipoT'             => $request->tramite,
+                'noTramite'         => $request->numTramite,
+                'fechaEla'          => $request->fechaElaboracion,
+                'OC'                => $request->oc,
+                'fechaOC'           => $request->fechaOC,
+                'recepcion'         => $request->recepcion,
+                'fechaRecepcion'    => $request->fechaRecepcion,
+                'importeOrden'      => $request->importeOrden,
+                'nombreProveedor'   => $request->nombre,
+                'rfcProveedor'      => $request->rfc,
+                'organizacion'      => $request->organizacion,
+            ]);
+            $newDatosOrden = datos_orden::create([
+                'idOP'              => $newOrden->id,
+                'programaP'         => $request->proPresupuestal,
+                'noPartida'         => $request->numPartida,
+                'concepto'          => $request->concepto,
+                'importeParcial'    => $request->importeParcial,
+                'importetotal'      => $request->importeParcial,
+            ]);
+            \DB::commit();
+            $tipo = 'success';
+            $estatus= true;
+            $mensaje = 'Los datos se guardaron correctamente';
+            $data = [$newOrden,$newDatosOrden];
+        } catch (\Exception $e) {
+            $tipo = 'errors';
+            $estatus= false;
+            $mensaje = $e->getMessage();
+            \DB::rollback();
+        }
+        return response()->json(array('estatus' => $estatus, 'mensaje' => $mensaje, 'tipo' => $tipo, 'data' => $data));
 
 
-        $orden->save();
-
-
-        $datos = new datos_orden;
-
-
-        $datos->save()
+        //return response()->json($newOrden);
 
     }
 

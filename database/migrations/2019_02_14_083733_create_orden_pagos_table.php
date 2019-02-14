@@ -16,7 +16,7 @@ class CreateOrdenPagosTable extends Migration
         Schema::create('orden_pago', function (Blueprint $table) {
             $table->increments('id');
             $table->string('areaT');//area que tramita
-            $table->enum('tipoT', ['pagoD', 'sujeroC','fondoR','comprobacion']);//tipo de trámite
+            $table->enum('tipoT', ['PAGO DIRECTO', 'OBRA PÚBLICA','VIÁTICOS']);//tipo de trámite
             $table->string('noTramite');//número de trámoite
             $table->date('fechaEla');//fecha de elaboración
             $table->string('OC');//NO SE QUE CHINGADOS ES OC
