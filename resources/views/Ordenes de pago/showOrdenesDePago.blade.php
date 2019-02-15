@@ -70,8 +70,13 @@
                     <div class="row pb-3">
                         <div class="col-3">
                             {{ Form::label('importeOrden', 'IMPORTE DE LA ORDEN:') }}
-                            {{ Form::text('importeOrden',null,array('required','class'=>'form-control soloNumeros','title'=>'Importe de la orden')) }}
-                            <div id="error_importeOrden"></div>
+                            <div class="input-group mb-2 mr-sm-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">$</div>
+                                </div>                                
+                                {{ Form::text('importeOrden',null,array('required','class'=>'form-control soloNumeros','title'=>'Importe de la orden')) }}
+                                <div id="error_importeOrden"></div>
+                            </div>
                         </div>
                         <div class="col-3">
                             {{ Form::label('letraImporte', 'LETRA DE IMPORTE:') }}
@@ -131,8 +136,13 @@
                         </div>
                         <div class="col-3">
                             {{ Form::label('importeParcial', 'IMPORTE PARCIAL:') }}
-                            {{ Form::text('importeParcial',null,array('required','class'=>'form-control soloNumeros','title'=>'Importe parcial')) }}
-                            <div id="error_importeParcial"></div>
+                            <div class="input-group mb-2 mr-sm-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">$</div>
+                                </div>                                
+                                {{ Form::text('importeParcial',null,array('required','class'=>'form-control soloNumeros','title'=>'Importe parcial')) }}
+                                <div id="error_importeParcial"></div>
+                            </div>
                         </div>
                     </div>
                     <div class="row pb-3">

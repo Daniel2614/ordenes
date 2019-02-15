@@ -59,8 +59,10 @@ class OrdenesDePagoController extends Controller
                 'recepcion'         => $request->recepcion,
                 'fechaRecepcion'    => $request->fechaRecepcion,
                 'importeOrden'      => $request->importeOrden,
-                'nombreProveedor'   => $request->nombre,
-                'rfcProveedor'      => $request->rfc,
+                'nombre'            => $request->nombre,
+                'primerAP'          => $request->primerAP,
+                'segundoAP'         => $request->segundoAP,
+                'rfc'               => $request->rfc,
                 'organizacion'      => $request->organizacion,
             ]);
             $newDatosOrden = datos_orden::create([
