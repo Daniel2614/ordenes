@@ -1,6 +1,11 @@
 @extends('Template.main')
 
 @section('css')
+<style>
+    td{
+    min-width:70px;
+}
+</style>
 
 @endsection
 
@@ -17,74 +22,27 @@
     </div>
 </div>
 <hr class="my-1" style="border-top:1px solid rgba(0, 0, 0, 0)">
-<div class=" border border-dark" style="font-size:11px;">
-    <div class="row" style="text-align:center;font-size:12px !important;">
-        <div class="col-sm-3">
-            <span>ÁREA QUE TRAMITA</span>
-        </div>
-        <div class="col-sm-9">
-            <span>ÁREA</span>
-        </div>
-    </div>
-    <div class="row" style="text-align:center;font-size:12px !important;">
-        <div class="col-sm-3">
-            <span>TIPO DE TRÁMITE</span>
-        </div>
-        <div class="col-sm-1">
-            <span>PAGO DIRECTO</span>
-        </div>
-        <div class="col-sm-1">
-            <span> </span>
-        </div>
-        <div class="col-sm-1">
-            <span>SUJETO A COMPROBAR</span>
-        </div>
-        <div class="col-sm-1">
-            <span> </span>
-        </div>
-        <div class="col-sm-2">
-            <span>FONDO REVOLVENTE</span>
-        </div>
-        <div class="col-sm-1">
-            <span> </span>
-        </div>
-        <div class="col-sm-1">
-            <span>COMPROBACIÓN</span>
-        </div>
-        <div class="col-sm-1">
-            <span> </span>
-        </div>
-    </div>
-    <div class="row" style="text-align:center;font-size:12px !important;">
-        <div class="col-sm-1">
-            <span>N° TRÁMITE</span>
-        </div>
-        <div class="col-sm-2">
-            <span>MA-859-2018</span>
-        </div>
-        <div class="col-sm-1">
-            <span>FECHA DE ELABORACIÓN</span>
-        </div>
-        <div class="col-sm-2">
-            <span>14-DIC-18</span>
-        </div>
-        <div class="col-sm-2">
-            <span> </span>
-        </div>
-        <div class="col-sm-1">
-            <span>O.C.</span>
-        </div>
-        <div class="col-sm-1">
-            <span> </span>
-        </div>
-        <div class="col-sm-1">
-            <span>FECHA</span>
-        </div>
-        <div class="col-sm-1">
-            <span></span>
-        </div>
-    </div>
-</div>
+<table class="table-bordered col-md-12">
+    <tr scope="row">
+        <td colspan="2">AREA QUE TRAMITA</td>
+        <td colspan="8">area de juan el crack</td>
+    </tr>
+    <tr scope="row">
+        <td colspan="2">TIPO DE TRAMITE</td>
+        
+        <td>PAGO DIRECTO</td>
+        <td></td>
+        <td>SUJETO A COMPROBAR</td>
+        <td></td>
+        <td>FONDO REVOLVENTE</td>
+        <td></td>
+        <td>COMPROBACION</td>
+        <td></td>
+    </tr>
+</table>
+
+
+
 @endsection
 @section('scripts')
 
