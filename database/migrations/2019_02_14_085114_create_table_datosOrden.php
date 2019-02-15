@@ -13,7 +13,7 @@ class CreateTableDatosOrden extends Migration
      */
     public function up()
     {
-        Schema::create('datosOrden', function (Blueprint $table) {
+        Schema::create('datos_orden', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('idOP')->unsigned();
             $table->foreign('idOP')->references('id')->on('orden_pago');

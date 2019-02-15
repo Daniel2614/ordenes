@@ -60,8 +60,8 @@ class OrdenesDePagoController extends Controller
                 'fechaRecepcion'    => $request->fechaRecepcion,
                 'importeOrden'      => $request->importeOrden,
                 'nombre'            => $request->nombre,
-                'primerAP'          => $request->primerAP,
-                'segundoAP'         => $request->segundoAP,
+                'primerAp'          => $request->primerAP,
+                'segundoAp'         => $request->segundoAP,
                 'rfc'               => $request->rfc,
                 'organizacion'      => $request->organizacion,
             ]);

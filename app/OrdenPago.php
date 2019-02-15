@@ -17,8 +17,10 @@ class OrdenPago extends Model
 			'recepcion',
 			'fechaRecepcion',
 			'importeOrden',
-			'nombreProveedor',
-			'rfcProveedor',
+			'nombre',
+			'primerAp',
+			'segundoAp',
+			'rfc',
 			'organizacion',
 	  ];
 
