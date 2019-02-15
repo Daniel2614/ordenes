@@ -68,9 +68,6 @@
         <script src="{{ asset('admin/dist/js/adminlte.min.js') }}"></script>
 
         <script type="text/javascript">
-            function mayus(e) {
-                e.value = e.value.toUpperCase();
-            }
 
             $(function (){
                 $.ajaxSetup({
@@ -78,7 +75,18 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
-            }); 
+            });
+
+            $("body").on('change', '.mayuscula', function(field){
+                $(this).val($(this).val().toUpperCase());
+            });
+
+            $("body").on('keypress', '.soloNumeros', function(event){
+                var key = window.event.keyCode;
+                if (key < 48 || key > 57) {
+                    return false;
+                }
+            });
 
             (function() {
                 'use strict';

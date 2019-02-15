@@ -24,12 +24,12 @@
                     <div class="row pb-3">
                         <div class="col-9">
                             {{ Form::label('area', 'ÁREA QUE TRAMITA:') }}
-                            {{ Form::text('area',null,array('required','class'=>'form-control','title'=>'Área que tramita')) }}
+                            {{ Form::text('area',null,array('required','class'=>'form-control mayuscula','title'=>'Área que tramita')) }}
                             <div id="error_area"></div>
                         </div>
                         <div class="col-3">
                             {{ Form::label('tramite', 'TIPO DE TRÁMITE:') }}
-                            {{ Form::text('tramite','PAGO DIRECTO',array('required','class'=>'form-control','title'=>'Tipo de trámite')) }}
+                            {{ Form::select('tramite',$tipoTramite,null,array('required','class'=>'form-control','title'=>'Tipo de trámite')) }}
                             <div id="error_tramite"></div>
                         </div>
                         <!--<div class="col-3">
@@ -48,7 +48,7 @@
                     <div class="row pb-3">
                         <div class="col-3">
                             {{ Form::label('numTramite', 'N° TRÁMITE:') }}
-                            {{ Form::text('numTramite',null,array('required','class'=>'form-control','title'=>'Número de trámite')) }}
+                            {{ Form::text('numTramite',null,array('required','class'=>'form-control mayuscula','title'=>'Número de trámite')) }}
                             <div id="error_numTramite"></div>
                         </div>
                         <div class="col-3">
@@ -58,7 +58,7 @@
                         </div>
                         <div class="col-3">
                             {{ Form::label('oc', 'O.C. :') }}
-                            {{ Form::text('oc',null,array('required','class'=>'form-control','title'=>'')) }}
+                            {{ Form::text('oc',null,array('required','class'=>'form-control mayuscula','title'=>'')) }}
                             <div id="error_oc"></div>
                         </div>
                         <div class="col-3">
@@ -70,17 +70,17 @@
                     <div class="row pb-3">
                         <div class="col-3">
                             {{ Form::label('importeOrden', 'IMPORTE DE LA ORDEN:') }}
-                            {{ Form::text('importeOrden',null,array('required','class'=>'form-control','title'=>'Importe de la orden')) }}
+                            {{ Form::text('importeOrden',null,array('required','class'=>'form-control soloNumeros','title'=>'Importe de la orden')) }}
                             <div id="error_importeOrden"></div>
                         </div>
                         <div class="col-3">
                             {{ Form::label('letraImporte', 'LETRA DE IMPORTE:') }}
-                            {{ Form::text('letraImporte',null,array('required','class'=>'form-control','title'=>'Letra de importe')) }}
+                            {{ Form::text('letraImporte',null,array('required','class'=>'form-control mayuscula','title'=>'Letra de importe')) }}
                             <div id="error_letraImporte"></div>
                         </div>
                         <div class="col-3">
                             {{ Form::label('recepcion', 'RECEPCIÓN:') }}
-                            {{ Form::text('recepcion',null,array('required','class'=>'form-control','title'=>'Recepción')) }}
+                            {{ Form::text('recepcion',null,array('required','class'=>'form-control mayuscula','title'=>'Recepción')) }}
                             <div id="error_recepcion"></div>
                         </div>
                         <div class="col-3">
@@ -93,22 +93,22 @@
                     <div class="row pb-3">
                         <div class="col-3">
                             {{ Form::label('nombre', 'NOMBRE(S):') }}
-                            {{ Form::text('nombre',null,array('required','class'=>'form-control','title'=>'Nombre(s) de la persona')) }}
+                            {{ Form::text('nombre',null,array('required','class'=>'form-control mayuscula','title'=>'Nombre(s) de la persona')) }}
                             <div id="error_nombre"></div>
                         </div>
                         <div class="col-3">
                             {{ Form::label('primerAP', 'PRIMER APELLIDO:') }}
-                            {{ Form::text('primerAP',null,array('required','class'=>'form-control','title'=>'Primer apellido de la persona')) }}
+                            {{ Form::text('primerAP',null,array('required','class'=>'form-control mayuscula','title'=>'Primer apellido de la persona')) }}
                             <div id="error_primerAP"></div>
                         </div>
                         <div class="col-3">
                             {{ Form::label('segundoAP', 'SEGUNDO APELLIDO:') }}
-                            {{ Form::text('segundoAP',null,array('required','class'=>'form-control','title'=>'Segundo apellido de la persona')) }}
+                            {{ Form::text('segundoAP',null,array('required','class'=>'form-control mayuscula','title'=>'Segundo apellido de la persona')) }}
                             <div id="error_segundoAP"></div>
                         </div>
                         <div class="col-3">
                             {{ Form::label('rfc', 'R.F.C. :') }}
-                            {{ Form::text('rfc',null,array('required','class'=>'form-control','title'=>'R.F.C. de la persona')) }}
+                            {{ Form::text('rfc',null,array('required','class'=>'form-control mayuscula','title'=>'R.F.C. de la persona')) }}
                             <div id="error_rfc"></div>
                         </div>
                     </div>
@@ -116,29 +116,29 @@
                     <div class="row pb-3">
                         <div class="col-3">
                             {{ Form::label('organizacion', 'ORGANIZACIÓN:') }}
-                            {{ Form::text('organizacion','401A06100',array('required','class'=>'form-control','title'=>'Organización')) }}
+                            {{ Form::text('organizacion','401A06100',array('required','class'=>'form-control mayuscula','title'=>'Organización')) }}
                             <div id="error_organizacion"></div>
                         </div>
                         <div class="col-3">
                             {{ Form::label('proPresupuestal', 'PROGRAMA PRESUPUESTAL:') }}
-                            {{ Form::text('proPresupuestal',null,array('required','class'=>'form-control','title'=>'Programa presupuestal')) }}
+                            {{ Form::text('proPresupuestal',null,array('required','class'=>'form-control mayuscula','title'=>'Programa presupuestal')) }}
                             <div id="error_proPresupuestal"></div>
                         </div>
                         <div class="col-3">
                             {{ Form::label('numPartida', 'N° DE PARTIDA:') }}
-                            {{ Form::text('numPartida',null,array('required','class'=>'form-control','title'=>'Número de partida')) }}
+                            {{ Form::text('numPartida',null,array('required','class'=>'form-control soloNumeros','title'=>'Número de partida')) }}
                             <div id="error_numPrtida"></div>
                         </div>
                         <div class="col-3">
                             {{ Form::label('importeParcial', 'IMPORTE PARCIAL:') }}
-                            {{ Form::text('importeParcial',null,array('required','class'=>'form-control','title'=>'Importe parcial')) }}
+                            {{ Form::text('importeParcial',null,array('required','class'=>'form-control soloNumeros','title'=>'Importe parcial')) }}
                             <div id="error_importeParcial"></div>
                         </div>
                     </div>
                     <div class="row pb-3">
                         <div class="col-12">
                             {{ Form::label('concepto', 'CONCEPTO:') }}
-                            {{ Form::textarea('concepto',null,array('required','size' => '50x3','class'=>'form-control','title'=>'Concepto')) }}
+                            {{ Form::textarea('concepto',null,array('required','size' => '50x3','class'=>'form-control mayuscula','title'=>'Concepto')) }}
                             <div id="error_concepto"></div>
                         </div>
                     </div>
@@ -153,7 +153,7 @@
 @endsection
 
 @section('scripts')
-    <script type="text/javascript">
+<script type="text/javascript">
     $(document).ready(function () {
         var footerButtons         = $('#footer-buttons');
         var RouteStoreOrden     = "{!! route('ordenes.store') !!}";
@@ -208,5 +208,5 @@
             });
         });
     });
-    </script>
+</script>
 @endsection

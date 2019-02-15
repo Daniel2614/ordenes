@@ -16,7 +16,13 @@ class OrdenesDePagoController extends Controller
      */
     public function index()
     {
-        return view('Ordenes de pago.showOrdenesDePago');
+        $tipoTramite = array(
+            null            => 'SELECCIONE UNA OPCIÓN',
+            'PAGO DIRECTO'  => 'PAGO DIRECTO',
+            'OBRA PÚBLICA'  => 'OBRA PÚBLICA',
+            'VIÁTICOS'      => 'VIÁTICOS'
+        );
+        return view('Ordenes de pago.showOrdenesDePago',compact('tipoTramite'));
     }
 
     /**
