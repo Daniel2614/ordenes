@@ -24,8 +24,10 @@ class CreateOrdenPagosTable extends Migration
             $table->string('recepcion');
             $table->date('fechaRecepcion');
             $table->double('importeOrden', 8, 2);
-            $table->string('nombreProveedor');
-            $table->string('rfcProveedor');
+            $table->string('nombre');
+            $table->string('primerAp');
+            $table->string('segundoAp');
+            $table->string('rfc');
             $table->string('organizacion');
             $table->timestamps();
         });

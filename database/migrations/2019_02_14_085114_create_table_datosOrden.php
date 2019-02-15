@@ -13,7 +13,7 @@ class CreateDatosOrdenTable extends Migration
      */
     public function up()
     {
-        Schema::create('datos_orden', function (Blueprint $table) {
+        Schema::create('datosOrden', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('idOP')->unsigned();
             $table->foreign('idOP')->references('id')->on('orden_pago');
@@ -33,6 +33,6 @@ class CreateDatosOrdenTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('datos_orden');
+        Schema::dropIfExists('datosOrden');
     }
 }

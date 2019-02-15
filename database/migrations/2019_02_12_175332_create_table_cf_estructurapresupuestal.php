@@ -13,7 +13,7 @@ class ControlfEstructurapresupuestal extends Migration
      */
     public function up()
     {
-         Schema::create('controlf_estructurapresupuestal', function (Blueprint $table){
+         Schema::create('cf_estructurapresupuestal', function (Blueprint $table){
             $table->increments('id');
             $table->string('organizacion');
             $table->string('funcion');
@@ -33,6 +33,6 @@ class ControlfEstructurapresupuestal extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('controlf_estructurapresupuestal');
+        Schema::dropIfExists('cf_estructurapresupuestal');
     }
 }
