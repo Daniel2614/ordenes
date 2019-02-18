@@ -26,9 +26,9 @@
 		<!-- Sidebar Menu -->
 		<nav class="mt-2">
 			<ul class="nav nav-pills nav-sidebar flex-column"  data-widget="treeview" role="menu" data-accordion="false">			
-						<li class="nav-item has-treeview" data-widget="tree"><a href="{!! route('ordenes.index') !!}" class="{{ Request::is( 'ordenes') ? 'active' : '' }} nav-link"><i class="fas fa-plus"></i><p>&nbsp Nueva órden</p></a>
+						<li class="nav-item has-treeview" data-widget="tree"><a href="{!! route('ordenes.create') !!}" class="{{ Request::is( 'ordenes/create') ? 'active' : '' }} nav-link"><i class="fas fa-plus"></i><p>&nbsp Nueva órden</p></a>
 						</li>
-						<li class="nav-item has-treeview" data-widget="tree"><a href="{!! route('ordenes') !!}" class="{{ Request::is( 'ordenes') ? 'active' : '' }} nav-link"><i class="fas fa-money-check-alt"></i><p>&nbsp Órdenes de pago</p></a>
+						<li class="nav-item has-treeview" data-widget="tree"><a href="{!! route('ordenes.index') !!}" class="{{ Request::is( 'ordenes') ? 'active' : '' }} nav-link"><i class="fas fa-money-check-alt"></i><p>&nbsp Órdenes de pago</p></a>
 						</li>							
 						
 								

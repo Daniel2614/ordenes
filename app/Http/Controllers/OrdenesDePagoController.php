@@ -19,13 +19,9 @@ class OrdenesDePagoController extends Controller
 
     public function index()
     {
-        $tipoTramite = array(
-            null            => 'SELECCIONE UNA OPCIÓN',
-            'PAGO DIRECTO'  => 'PAGO DIRECTO',
-            'OBRA PÚBLICA'  => 'OBRA PÚBLICA',
-            'VIÁTICOS'      => 'VIÁTICOS'
-        );
-        return view('Ordenes de pago.showOrdenesDePago',compact('tipoTramite'));
+        $ordenes = OrdenPago::all();
+        // dd($ordenes);
+        return view('Ordenes de pago.tableOrdenesDePago',['ordenes'=>$ordenes]);
     }
 
     /**
@@ -35,7 +31,13 @@ class OrdenesDePagoController extends Controller
      */
     public function create()
     {
-        //
+        $tipoTramite = array(
+            null            => 'SELECCIONE UNA OPCIÓN',
+            'PAGO DIRECTO'  => 'PAGO DIRECTO',
+            'OBRA PÚBLICA'  => 'OBRA PÚBLICA',
+            'VIÁTICOS'      => 'VIÁTICOS'
+        );
+        return view('Ordenes de pago.showOrdenesDePago',compact('tipoTramite'));
     }
 
     /**
@@ -47,20 +49,11 @@ class OrdenesDePagoController extends Controller
     public function store(OrdenesRequest $request)
     {
         //dd($request->all());
-        //dd($request->organizacion[0]);
-        /*foreach ($fotosFront[$conteo-1] as $key => $fval) {
-            //$fval son las fotos de esta sección
-            if(isset($request->idInputFotos[$fval->id]){
-
-            };
-        }*/
-        
         $mensaje = null;
         $data = null;
         \DB::beginTransaction();
         try
         {
-            
             $newOrden = OrdenPago::create([
                 'areaT'             => $request->area,
                 'tipoT'             => $request->tramite,
@@ -78,14 +71,9 @@ class OrdenesDePagoController extends Controller
                 'organizacion'      => $request->organizacion,
             ]);
             foreach ($request->proPresupuestal as $key => $value) {
-                # code...
                 /*if(isset($request->proPresupuestal)){
                     // dd($key);
                 };*/
-                //dd($request->numPartida[$key]);
-                //$datosOrden = new datos_orden();
-                //$datosOrden->programaP = $value;
-                //$datosOrden->noPartida = $request->numPartida[$key];
                 $newDatosOrden = datos_orden::create([
                     'idOP'              => $newOrden->id,
                     'programaP'         => $value,
@@ -94,7 +82,6 @@ class OrdenesDePagoController extends Controller
                     'importeParcial'    => $request->importeParcial[$key],
                     'importetotal'      => $request->importeParcial[$key],
                 ]);
-    
             };
             /*$newDatosOrden = datos_orden::create([
                 'idOP'              => $newOrden->id,
@@ -130,7 +117,11 @@ class OrdenesDePagoController extends Controller
      */
     public function show($id)
     {
-        //
+        setlocale(LC_TIME, 'Spanish');
+        $orden = OrdenPago::with('datos')->find($id);
+        $fecha = new Date($orden->fechaEla);
+        
+        return view('Ordenes de pago.OrdenDePago',['orden'=>$orden,'fecha'=>$fecha->format('d-F-Y')]);
     }
 
     /**
@@ -166,7 +157,7 @@ class OrdenesDePagoController extends Controller
     {
         //
     }
-    public function orden($id){
+    /*public function orden($id){
         setlocale(LC_TIME, 'Spanish');
         $orden = OrdenPago::with('datos')->find($id);
         $fecha = new Date($orden->fechaEla);
@@ -177,5 +168,5 @@ class OrdenesDePagoController extends Controller
         $ordenes = OrdenPago::all();
         // dd($ordenes);
         return view('Ordenes de pago.tableOrdenesDePago',['ordenes'=>$ordenes]);
-    }
+    }*/
 }

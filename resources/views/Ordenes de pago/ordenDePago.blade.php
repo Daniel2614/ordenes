@@ -76,11 +76,18 @@
         <td colspan="2">IMPORTE</td>
     </tr>
     <tr scope="row">
-    <td>R.F.C.</td>
-    <td>NOMBRE</td>
-    <td>PARCIAL</td>
-    <td>TOTAL</td>
+        <td>R.F.C.</td>
+        <td>NOMBRE</td>
+        <td>PARCIAL</td>
+        <td>TOTAL</td>
     </tr>
+    @foreach( $orden->datos as $dato )
+        <tr scope="row">
+            <td></td>
+            <td>{{ $dato->programaP }}</td>
+            <td>{{ $dato->noPartida }}</td>
+        </tr>
+    @endforeach
 </table>
 
 

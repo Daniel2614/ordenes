@@ -23,7 +23,7 @@
 			<tr>
 				<td>{{$orden->noTramite}}</td>
 				<td>{{$orden->fechaEla}}</td>
-				<td><a href="{{url('orden')}}/{{$orden->id}}" class="btn btn-primary" >Ver</a></td>
+				<td><a href="{{url('ordenes')}}/{{$orden->id}}" class="btn btn-primary" >Ver</a></td>
 			</tr>
 		@endforeach
 	@endif
