@@ -136,7 +136,9 @@ class OrdenesDePagoController extends Controller
         //
     }
     public function orden($id){
-        dd($id);
+
+        $orden = OrdenPago::with('datos')->find($id);
+        return view('Ordenes de pago.OrdenDePago',['orden'=>$orden]);
     }
     public function ordenes(){
         $ordenes = OrdenPago::all();
