@@ -135,4 +135,12 @@ class OrdenesDePagoController extends Controller
     {
         //
     }
+    public function orden($id){
+        dd($id);
+    }
+    public function ordenes(){
+        $ordenes = OrdenPago::all();
+        // dd($ordenes);
+        return view('Ordenes de pago.tableOrdenesDePago',['ordenes'=>$ordenes]);
+    }
 }

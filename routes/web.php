@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('Ordenes de pago.documentoOrdenPago');
 });
 
+Route::get('/orden/{id}','OrdenesDePagoController@orden')->name('ordenpago');
+
+Route::get('/ordenesTable', 'OrdenesDePagoController@ordenes')->name('ordenes');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -8,7 +8,7 @@ class OrdenPago extends Model
 {
      protected $table = 'orden_pago';
 	  protected $fillable = [
-	    'areaT',
+	    	'areaT',
 			'tipoT',
 			'noTramite',
 			'fechaEla',
