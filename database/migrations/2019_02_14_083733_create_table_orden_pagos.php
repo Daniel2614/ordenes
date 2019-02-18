@@ -23,7 +23,7 @@ class CreateTableOrdenPagos extends Migration
             $table->date('fechaOC');
             $table->string('recepcion');
             $table->date('fechaRecepcion');
-            $table->double('importeOrden', 8, 2);
+            $table->string('importeOrden');
             $table->string('nombre');
             $table->string('primerAp');
             $table->string('segundoAp');

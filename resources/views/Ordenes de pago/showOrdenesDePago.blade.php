@@ -74,7 +74,7 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">$</div>
                                 </div>                                
-                                {{ Form::text('importeOrden',null,array('required','class'=>'form-control soloNumeros','title'=>'Importe de la orden')) }}
+                                {{ Form::text('importeOrden',null,array('required','class'=>'form-control soloNumeros decimales','title'=>'Importe de la orden')) }}
                                 <div id="error_importeOrden"></div>
                             </div>
                         </div>
@@ -140,7 +140,7 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">$</div>
                                 </div>                                
-                                {{ Form::text('importeParcial',null,array('required','class'=>'form-control soloNumeros','title'=>'Importe parcial')) }}
+                                {{ Form::text('importeParcial',null,array('required','class'=>'form-control soloNumeros decimales','title'=>'Importe parcial')) }}
                                 <div id="error_importeParcial"></div>
                             </div>
                         </div>
@@ -152,9 +152,11 @@
                             <div id="error_concepto"></div>
                         </div>
                     </div>
+                    <hr id="plus" class="my-4">
                     <!-- {{-- {!! Form::submit('Guardar', ['class' => 'btn btn-primary','id'=>'guardarOrden']) !!} --}} -->
 				{!! Form::close() !!}
                 <div id="footer-buttons">
+                    <button type="button" class="btn btn-secondary" type="submit" id="otroConcepto">Nuevo Concepto</button>
                     <button type="button" class="btn btn-primary" type="submit" id="guardarOrden">Guardar</button>
                 </div>
             </div>
@@ -167,6 +169,33 @@
     $(document).ready(function () {
         var footerButtons         = $('#footer-buttons');
         var RouteStoreOrden     = "{!! route('ordenes.store') !!}";
+
+        $(".decimales").on({
+            "focus": function(event) {
+                $(event.target).select();
+            },
+            "keyup": function(event) {
+                $(event.target).val(function(index, value) {
+                return value.replace(/\D/g, "")
+                    .replace(/([0-9])([0-9]{2})$/, '$1.$2')
+                    .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",");
+                });
+            }
+        });
+
+        $("#otroConcepto").click(function(){
+            var divs=document.getElementsByTagName('div');
+            var num=0;
+            for (x=0;x<divs.length;x++){
+                if (divs[x].getAttribute('name')=="plusConcepto"){ 
+                    num+=1; 
+                }
+            };
+            num=num+1;
+            var concepto = '<div id="newConcepto_'+num+'" name="plusConcepto" class="row pb-3"><div class="col-3">{{ Form::label("organizacion_'+num+'", "ORGANIZACIÓN:") }}<input type="text" class="form-control mayuscula" title="Organización" value="40A06100" name="organizacion_'+num+'" id="organizacion_'+num+'" required><div id="error_organizacion_'+num+'"></div></div><div class="col-3">{{ Form::label("proPresupuestal_'+num+'", "PROGRAMA PRESUPUESTAL:") }}<input type="text" class="form-control mayuscula" title="Programa presupuestal" name="proPresupuestal_'+num+'" id="proPresupuestal_'+num+'" required><div id="error_proPresupuestal_'+num+'"></div></div><div class="col-3">{{ Form::label("numPartida_'+num+'", "N° DE PARTIDA:") }}<input type="text" class="form-control soloNumeros" title="Número de partida" name="numPartida_'+num+'" id="numPartida_'+num+'" required><div id="error_numPrtida_'+num+'"></div></div><div class="col-3">{{ Form::label("importeParcial_'+num+'", "IMPORTE PARCIAL:") }}<div class="input-group mb-2 mr-sm-2"><div class="input-group-prepend"><div class="input-group-text">$</div></div><input type="text" class="form-control soloNumeros decimales" title="Importe parcial" name="importeParcial_'+num+'" id="importeParcial_'+num+'" required><div id="error_importeParcial_'+num+'"></div></div></div></div><div class="row pb-3"><div class="col-12">{{ Form::label("concepto_'+num+'", "CONCEPTO:") }}<textarea class="form-control mayuscula" title="Concepto" cols="50" rows="3" name="concepto_'+num+'" id="concepto_'+num+'" required></textarea><div id="error_concepto_'+num+'"></div></div></div></div><hr class="my-1">';
+            $("#formNewOrden").append(concepto);
+
+        });
 
         footerButtons.on('click', '#guardarOrden', function(event){
             var dataString = {
