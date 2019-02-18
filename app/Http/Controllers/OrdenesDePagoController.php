@@ -44,11 +44,20 @@ class OrdenesDePagoController extends Controller
     public function store(OrdenesRequest $request)
     {
         //dd($request->all());
+        //dd($request->organizacion[0]);
+        /*foreach ($fotosFront[$conteo-1] as $key => $fval) {
+            //$fval son las fotos de esta sección
+            if(isset($request->idInputFotos[$fval->id]){
+
+            };
+        }*/
+        
         $mensaje = null;
         $data = null;
         \DB::beginTransaction();
         try
         {
+            
             $newOrden = OrdenPago::create([
                 'areaT'             => $request->area,
                 'tipoT'             => $request->tramite,
@@ -65,14 +74,33 @@ class OrdenesDePagoController extends Controller
                 'rfc'               => $request->rfc,
                 'organizacion'      => $request->organizacion,
             ]);
-            $newDatosOrden = datos_orden::create([
+            foreach ($request->proPresupuestal as $key => $value) {
+                # code...
+                /*if(isset($request->proPresupuestal)){
+                    // dd($key);
+                };*/
+                //dd($request->numPartida[$key]);
+                //$datosOrden = new datos_orden();
+                //$datosOrden->programaP = $value;
+                //$datosOrden->noPartida = $request->numPartida[$key];
+                $newDatosOrden = datos_orden::create([
+                    'idOP'              => $newOrden->id,
+                    'programaP'         => $value,
+                    'noPartida'         => $request->numPartida[$key],
+                    'concepto'          => $request->concepto[$key],
+                    'importeParcial'    => $request->importeParcial[$key],
+                    'importetotal'      => $request->importeParcial[$key],
+                ]);
+    
+            };
+            /*$newDatosOrden = datos_orden::create([
                 'idOP'              => $newOrden->id,
                 'programaP'         => $request->proPresupuestal,
                 'noPartida'         => $request->numPartida,
                 'concepto'          => $request->concepto,
                 'importeParcial'    => $request->importeParcial,
                 'importetotal'      => $request->importeParcial,
-            ]);
+            ]);*/
             \DB::commit();
             $tipo = 'success';
             $estatus= true;

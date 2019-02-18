@@ -121,17 +121,17 @@
                     <div class="row pb-3">
                         <div class="col-3">
                             {{ Form::label('organizacion', 'ORGANIZACIÓN:') }}
-                            {{ Form::text('organizacion','401A06100',array('required','class'=>'form-control mayuscula','title'=>'Organización')) }}
+                            {{ Form::text('organizacion','401A06100',array('id'=>'organizacion','required','class'=>'form-control mayuscula','title'=>'Organización')) }}
                             <div id="error_organizacion"></div>
                         </div>
                         <div class="col-3">
                             {{ Form::label('proPresupuestal', 'PROGRAMA PRESUPUESTAL:') }}
-                            {{ Form::text('proPresupuestal',null,array('required','class'=>'form-control mayuscula','title'=>'Programa presupuestal')) }}
+                            {{ Form::text('proPresupuestal[]',null,array('id'=>'proPresupuestal','required','class'=>'form-control mayuscula','title'=>'Programa presupuestal')) }}
                             <div id="error_proPresupuestal"></div>
                         </div>
                         <div class="col-3">
                             {{ Form::label('numPartida', 'N° DE PARTIDA:') }}
-                            {{ Form::text('numPartida',null,array('required','class'=>'form-control soloNumeros','title'=>'Número de partida')) }}
+                            {{ Form::text('numPartida[]',null,array('id'=>'numPartida','required','class'=>'form-control soloNumeros','title'=>'Número de partida')) }}
                             <div id="error_numPrtida"></div>
                         </div>
                         <div class="col-3">
@@ -140,7 +140,7 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">$</div>
                                 </div>                                
-                                {{ Form::text('importeParcial',null,array('required','class'=>'form-control soloNumeros decimales','title'=>'Importe parcial')) }}
+                                {{ Form::text('importeParcial[]',null,array('id'=>'importeParcial','required','class'=>'form-control soloNumeros decimales','title'=>'Importe parcial')) }}
                                 <div id="error_importeParcial"></div>
                             </div>
                         </div>
@@ -148,16 +148,16 @@
                     <div class="row pb-3">
                         <div class="col-12">
                             {{ Form::label('concepto', 'CONCEPTO:') }}
-                            {{ Form::textarea('concepto',null,array('required','size' => '50x3','class'=>'form-control mayuscula','title'=>'Concepto')) }}
+                            {{ Form::textarea('concepto[]',null,array('id'=>'concepto','required','size' => '50x3','class'=>'form-control mayuscula','title'=>'Concepto')) }}
                             <div id="error_concepto"></div>
                         </div>
                     </div>
                     <hr id="plus" class="my-4">
-                    <!-- {{-- {!! Form::submit('Guardar', ['class' => 'btn btn-primary','id'=>'guardarOrden']) !!} --}} -->
+                    {!! Form::submit('Guardar', ['class' => 'btn btn-primary','id'=>'guardarOrden']) !!} 
 				{!! Form::close() !!}
                 <div id="footer-buttons">
                     <button type="button" class="btn btn-secondary" type="submit" id="otroConcepto">Nuevo Concepto</button>
-                    <button type="button" class="btn btn-primary" type="submit" id="guardarOrden">Guardar</button>
+                    <!--<button type="button" class="btn btn-primary" type="submit" id="guardarOrden">Guardar</button>-->
                 </div>
             </div>
         </div>  
@@ -192,7 +192,7 @@
                 }
             };
             num=num+1;
-            var concepto = '<div id="newConcepto_'+num+'" name="plusConcepto" class="row pb-3"><div class="col-3">{{ Form::label("organizacion_'+num+'", "ORGANIZACIÓN:") }}<input type="text" class="form-control mayuscula" title="Organización" value="40A06100" name="organizacion_'+num+'" id="organizacion_'+num+'" required><div id="error_organizacion_'+num+'"></div></div><div class="col-3">{{ Form::label("proPresupuestal_'+num+'", "PROGRAMA PRESUPUESTAL:") }}<input type="text" class="form-control mayuscula" title="Programa presupuestal" name="proPresupuestal_'+num+'" id="proPresupuestal_'+num+'" required><div id="error_proPresupuestal_'+num+'"></div></div><div class="col-3">{{ Form::label("numPartida_'+num+'", "N° DE PARTIDA:") }}<input type="text" class="form-control soloNumeros" title="Número de partida" name="numPartida_'+num+'" id="numPartida_'+num+'" required><div id="error_numPrtida_'+num+'"></div></div><div class="col-3">{{ Form::label("importeParcial_'+num+'", "IMPORTE PARCIAL:") }}<div class="input-group mb-2 mr-sm-2"><div class="input-group-prepend"><div class="input-group-text">$</div></div><input type="text" class="form-control soloNumeros decimales" title="Importe parcial" name="importeParcial_'+num+'" id="importeParcial_'+num+'" required><div id="error_importeParcial_'+num+'"></div></div></div></div><div class="row pb-3"><div class="col-12">{{ Form::label("concepto_'+num+'", "CONCEPTO:") }}<textarea class="form-control mayuscula" title="Concepto" cols="50" rows="3" name="concepto_'+num+'" id="concepto_'+num+'" required></textarea><div id="error_concepto_'+num+'"></div></div></div></div><hr class="my-1">';
+            var concepto = '<div id="newConcepto_'+num+'" name="plusConcepto" class="row pb-3"><div class="col-3">{{ Form::label("proPresupuestal_'+num+'", "PROGRAMA PRESUPUESTAL:") }}<input type="text" class="form-control mayuscula" title="Programa presupuestal" name="proPresupuestal[]" id="proPresupuestal_'+num+'" required><div id="error_proPresupuestal_'+num+'"></div></div><div class="col-3">{{ Form::label("numPartida_'+num+'", "N° DE PARTIDA:") }}<input type="text" class="form-control soloNumeros" title="Número de partida" name="numPartida[]" id="numPartida_'+num+'" required><div id="error_numPrtida_'+num+'"></div></div><div class="col-3">{{ Form::label("importeParcial_'+num+'", "IMPORTE PARCIAL:") }}<div class="input-group mb-2 mr-sm-2"><div class="input-group-prepend"><div class="input-group-text">$</div></div><input type="text" class="form-control soloNumeros decimales" title="Importe parcial" name="importeParcial[]" id="importeParcial_'+num+'" required><div id="error_importeParcial_'+num+'"></div></div></div></div><div class="row pb-3"><div class="col-12">{{ Form::label("concepto_'+num+'", "CONCEPTO:") }}<textarea class="form-control mayuscula" title="Concepto" cols="50" rows="3" name="concepto[]" id="concepto_'+num+'" required></textarea><div id="error_concepto_'+num+'"></div></div></div></div><hr class="my-1">';
             $("#formNewOrden").append(concepto);
 
         });
