@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\OrdenesRequest;
 use App\OrdenPago;
 use App\datos_orden;
+use Jenssegers\Date\Date;
 
 class OrdenesDePagoController extends Controller
 {
@@ -14,6 +15,7 @@ class OrdenesDePagoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $tipoTramite = array(
@@ -136,9 +138,11 @@ class OrdenesDePagoController extends Controller
         //
     }
     public function orden($id){
-
+        setlocale(LC_TIME, 'Spanish');
         $orden = OrdenPago::with('datos')->find($id);
-        return view('Ordenes de pago.OrdenDePago',['orden'=>$orden]);
+        $fecha = new Date($orden->fechaEla);
+
+        return view('Ordenes de pago.OrdenDePago',['orden'=>$orden,'fecha'=>$fecha->format('d-F-Y')]);
     }
     public function ordenes(){
         $ordenes = OrdenPago::all();

@@ -42,7 +42,7 @@
         <td>N° TRAMITE</td>
         <td>{{$orden->noTramite}}</td>
         <td>FECHA DE<br>ELABORACION</td>
-        <td colspan="2">{{$orden->fechaEla}} </td>
+        <td colspan="2">{{$fecha}} </td>
         <td></td>
         <td></td>
         <td>O.C.</td>
@@ -52,7 +52,7 @@
     </tr>
     <tr>
         <td colspan="1">IMPORTE DE LA<br>ORDEN</td>
-        <td colspan="1">$ 8'321.00</td>
+        <td colspan="1">$ {{$orden->importeOrden}}</td>
         <td colspan="5">(OCHO MIL TRESCIENTOS VEINTIUM PESOS 00/100 M.N.)</td>
         <td>RECEPCION</td>
         <td></td>
