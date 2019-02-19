@@ -119,7 +119,7 @@ class OrdenesDePagoController extends Controller
     public function show($id)
     {
         setlocale(LC_TIME, 'Spanish');
-        $orden = OrdenPago::with('datos')->find($id);
+        $orden = OrdenPago::with('datos','area')->find($id);
         $fecha = new Date($orden->fechaEla);
         $vistaurl = 'Ordenes de pago.OrdenDePago';
         $view = \View::make('Ordenes de pago.OrdenDePago',[
@@ -129,7 +129,7 @@ class OrdenesDePagoController extends Controller
         ])->with(["page" => "reporte"])->render();
     
         $pdf = \App::make('dompdf.wrapper');
-        $pdf->setPaper("A1", "portrait");
+        $pdf->setPaper("A4", "landscape");
         $pdf->loadHTML($view);
         
         return $pdf->stream('reporte.pdf');
