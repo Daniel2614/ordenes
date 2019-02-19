@@ -19,4 +19,9 @@ class EstructuraPresupuestal extends Model
     	'descripcion'
     	];
 
+        public function ordenes()
+    {
+        return $this->belongsToMany('App\OrdenPago');
+    }
+
 }

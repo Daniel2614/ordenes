@@ -15,23 +15,22 @@ class CreateTableOrdenPagos extends Migration
     {
         Schema::create('orden_pago', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('areaT');//area que tramita
+            $table->string('folioCaja')->nullable();
+            $table->string('noRecibo')->nullable();
+            $table->integer('idArea')->unsigned();
+            $table->foreign('idArea')->references('id')->on('controlf_estructurapresupuestal');
             $table->enum('tipoT', ['PAGO DIRECTO', 'SUJETO A COMPROBAR','FONDO REVOLVENTE','COMPROBACIÓN']);//tipo de TRAMITE
-            $table->boolean('sujeto')->nullable();
-            $table->boolean('fondoR')->nullable();
-            $table->boolean('comprobacion')->nullable();
             $table->string('noTramite');//número de trámite
-            $table->date('fechaEla');//fecha de elaboración
-            $table->string('OC');//NO SE QUE CHINGADOS ES OC
-            $table->date('fechaOC');
-            $table->string('recepcion');
-            $table->date('fechaRecepcion');
+            $table->string('OC')->nullable();//NO SE QUE CHINGADOS ES OC
+            $table->date('fechaOC')->nullable();
             $table->string('importeOrden');
-            $table->string('nombre');
-            $table->string('primerAp');
-            $table->string('segundoAp');
-            $table->string('rfc');
-            $table->string('organizacion');
+            $table->date('fechaEla');//fecha de elaboración
+            $table->string('recepcion')->nullable();
+            $table->date('fechaRecepcion')->nullable();
+            $table->string('rpand');
+            $table->string('p1');
+            $table->string('p2');
+            $table->string('p3');
             $table->timestamps();
         });
     }

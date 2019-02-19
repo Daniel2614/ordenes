@@ -19,4 +19,8 @@ class datos_orden extends Model
    {
        return $this->belongsTo('App\OrdenPago','idOP','id');
    }
+   public function proveedores()
+   {
+   		return $this->hasMany('App\provBenef');
+   }
 }

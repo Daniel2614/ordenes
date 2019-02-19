@@ -17,11 +17,9 @@ class CreateTableDatosOrden extends Migration
             $table->increments('id');
             $table->integer('idOP')->unsigned();
             $table->foreign('idOP')->references('id')->on('orden_pago');
-            $table->string('programaP');//programa presupuestal
-            $table->string('noPartida');
-            $table->string('concepto');
-            $table->string('importeParcial');
-            $table->string('importetotal');
+            $table->integer('idPartida')->unsigned();
+            $table->foreign('idPartida')->references('id')->on('controlf_catobjetogasto');
+            $table->string('importePartida');
             $table->timestamps();
         });
     }
@@ -33,6 +31,6 @@ class CreateTableDatosOrden extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('datosOrden');
+        Schema::dropIfExists('datos_orden');
     }
 }

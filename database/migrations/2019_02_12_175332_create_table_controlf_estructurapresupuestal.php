@@ -15,13 +15,13 @@ class CreateTableControlfEstructurapresupuestal extends Migration
     {
          Schema::create('controlf_estructurapresupuestal', function (Blueprint $table){
             $table->increments('id');
+            $table->string('descripcion');
             $table->string('organizacion');
             $table->string('funcion');
             $table->string('proPresupuestal');
             $table->string('partida');
             $table->string('fuenteF');
             $table->string('tGasto');
-            $table->string('descripcion');
             $table->timestamps();
         });
     }
