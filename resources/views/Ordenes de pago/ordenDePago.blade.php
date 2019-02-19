@@ -1,31 +1,28 @@
-@extends('Template.main')
-
-@section('css')
 <style>
-    td{
-        min-width:70px;
-    }
+    table {
+  border-collapse: collapse;
+}
+table, th, td {
+  border: 1px solid black;
+}
+td{
+    width: 100%;
+}
 </style>
-
-@endsection
-
-@section('title')
-    Órden de Pago
-@endsection
-@section('content')
 <div class="">
-    <div class="row justify-content-md-center">
-        <span style="font-weight:bold;">FISCALÍA GENERAL DEL ESTADO DE VERACRUZ</span>
+    <img src="{{ asset('img/1.png') }}" width="80px" height="80px" style="float: left;" >
+    <div style="text-align: center;">
+        <span style="font-weight:bold;">FISCALÍA GENERAL DEL ESTADO DE VERACRUZ DE IGNACIO DE LA LLAVE</span>
     </div>
-    <div class="row justify-content-md-center">
+    <div style="text-align: center; padding-top:30px;" >
+    
         <span>ORDEN DE PAGO</span>
     </div>
-</div>
-<hr class="my-1" style="border-top:1px solid rgba(0, 0, 0, 0)">
-<table class="table-bordered col-md-12" style="text-align:center;font-size:12px;">
+    
+<table  style="text-align:center;font-size:12px; width: 100%;margin-top: 20px">
     <tr scope="row">
         <td colspan="2">AREA QUE TRAMITA</td>
-        <td colspan="9">{{$orden->areaT}}</td>
+        <td colspan="9">{{$orden->area->descripcion}}</td>
     </tr>
     <tr scope="row">
         <td colspan="2">TIPO DE TRAMITE</td>
@@ -60,8 +57,10 @@
         <td>{{$orden->fechaRecepcion}}</td>
     </tr>
 </table>
+</div>
+
 <hr class="my-1" style="border-top:1px solid rgba(0, 0, 0, 0)">
-<table class="table-bordered col-md-12" style="text-align:center;font-size:12px;">
+<table style="text-align:center;font-size:12px; width: 100%">
     <tr scope="row">
         <td >INSTRUCCIÓN</td>
         <td >REALIZAR PAGO A NOMBRE DE </td>
@@ -89,9 +88,3 @@
         </tr>
     @endforeach
 </table>
-
-
-@endsection
-@section('scripts')
-
-@endsection

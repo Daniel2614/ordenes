@@ -8,7 +8,7 @@ use App\OrdenPago;
 use App\datos_orden;
 use Jenssegers\Date\Date;
 use NumerosEnLetras;
-
+use PDF;
 class OrdenesDePagoController extends Controller
 {
     /**
@@ -119,10 +119,21 @@ class OrdenesDePagoController extends Controller
     public function show($id)
     {
         setlocale(LC_TIME, 'Spanish');
-        $orden = OrdenPago::with('datos')->find($id);
+        $orden = OrdenPago::with('datos','area')->find($id);
         $fecha = new Date($orden->fechaEla);
+        $vistaurl = 'Ordenes de pago.OrdenDePago';
+        $view = \View::make('Ordenes de pago.OrdenDePago',[
+            'orden'      =>$orden,
+            'fecha'      =>$fecha,
+
+        ])->with(["page" => "reporte"])->render();
+    
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->setPaper("A4", "landscape");
+        $pdf->loadHTML($view);
         
-        return view('Ordenes de pago.OrdenDePago',['orden'=>$orden,'fecha'=>$fecha->format('d-F-Y')]);
+        return $pdf->stream('reporte.pdf');
+        // return view('Ordenes de pago.OrdenDePago',['orden'=>$orden,'fecha'=>$fecha->format('d-F-Y')]);
     }
 
     /**

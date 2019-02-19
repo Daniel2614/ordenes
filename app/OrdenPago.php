@@ -33,6 +33,6 @@ class OrdenPago extends Model
     }
     public function area()
     {
-        return $this->hasOne('App\EstructuraPresupuestal');
+        return $this->hasOne('App\EstructuraPresupuestal','id');
     }
 }
