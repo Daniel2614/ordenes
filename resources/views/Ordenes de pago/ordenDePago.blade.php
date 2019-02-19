@@ -1,18 +1,3 @@
-@extends('Template.main')
-
-@section('css')
-<style>
-    td{
-        min-width:70px;
-    }
-</style>
-
-@endsection
-
-@section('title')
-    Órden de Pago
-@endsection
-@section('content')
 <div class="">
     <div class="row justify-content-md-center">
         <span style="font-weight:bold;">FISCALÍA GENERAL DEL ESTADO DE VERACRUZ</span>
@@ -89,9 +74,3 @@
         </tr>
     @endforeach
 </table>
-
-
-@endsection
-@section('scripts')
-
-@endsection
