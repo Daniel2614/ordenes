@@ -10,6 +10,9 @@ class OrdenPago extends Model
 	  protected $fillable = [
 	    	'areaT',
 			'tipoT',
+			'sujeto',
+			'fondoR',
+			'comprobacion',
 			'noTramite',
 			'fechaEla',
 			'OC',

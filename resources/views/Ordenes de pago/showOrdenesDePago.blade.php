@@ -20,7 +20,7 @@
                 <h5>Capturar Orden de Pago</h5>
             </div>
             <div class="card-body">
-                {!! Form::open(['id'=>'formNewOrden','novalidate','class'=>'needs-validation','route' => 'ordenes.store', 'method'=>'POST']) !!}
+                {!! Form::open(['id'=>'formNewOrden','class'=>'needs-validation','route' => 'ordenes.store', 'method'=>'POST']) !!}
                     <div class="row pb-3">
                         <div class="col-9">
                             {{ Form::label('area', 'ÁREA QUE TRAMITA:') }}
@@ -152,13 +152,17 @@
                             <div id="error_concepto"></div>
                         </div>
                     </div>
+                    <div id="nuevoConcepto" class="col-md-12">
+                        
+                    </div>
                     <hr id="plus" class="my-4">
-                    {!! Form::submit('Guardar', ['class' => 'btn btn-primary','id'=>'guardarOrden']) !!} 
-				{!! Form::close() !!}
-                <div id="footer-buttons">
-                    <button type="button" class="btn btn-secondary" type="submit" id="otroConcepto">Nuevo Concepto</button>
-                    <!--<button type="button" class="btn btn-primary" type="submit" id="guardarOrden">Guardar</button>-->
+                    <div id="footer-buttons col-md-12">
+                        <button type="button" class="btn btn-secondary btn-lg"  id="otroConcepto">Nuevo Concepto</button>
+                         {!! Form::submit('Guardar', ['class' => 'btn btn-primary btn-lg','id'=>'guardarOrden']) !!} 
                 </div>
+                   
+				{!! Form::close() !!}
+                
             </div>
         </div>  
     </div>
@@ -193,7 +197,7 @@
             };
             num=num+1;
             var concepto = '<div id="newConcepto_'+num+'" name="plusConcepto" class="row pb-3"><div class="col-3">{{ Form::label("proPresupuestal_'+num+'", "PROGRAMA PRESUPUESTAL:") }}<input type="text" class="form-control mayuscula" title="Programa presupuestal" name="proPresupuestal[]" id="proPresupuestal_'+num+'" required><div id="error_proPresupuestal_'+num+'"></div></div><div class="col-3">{{ Form::label("numPartida_'+num+'", "N° DE PARTIDA:") }}<input type="text" class="form-control soloNumeros" title="Número de partida" name="numPartida[]" id="numPartida_'+num+'" required><div id="error_numPrtida_'+num+'"></div></div><div class="col-3">{{ Form::label("importeParcial_'+num+'", "IMPORTE PARCIAL:") }}<div class="input-group mb-2 mr-sm-2"><div class="input-group-prepend"><div class="input-group-text">$</div></div><input type="text" class="form-control soloNumeros decimales" title="Importe parcial" name="importeParcial[]" id="importeParcial_'+num+'" required><div id="error_importeParcial_'+num+'"></div></div></div></div><div class="row pb-3"><div class="col-12">{{ Form::label("concepto_'+num+'", "CONCEPTO:") }}<textarea class="form-control mayuscula" title="Concepto" cols="50" rows="3" name="concepto[]" id="concepto_'+num+'" required></textarea><div id="error_concepto_'+num+'"></div></div></div></div><hr class="my-1">';
-            $("#formNewOrden").append(concepto);
+            $("#nuevoConcepto").append(concepto);
 
         });
 
