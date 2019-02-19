@@ -14,5 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CatObjetoGastoSeeder::class);
         $this->call(EstructuraOrgSeeder::class);
         $this->call(EstructuraPSeeder::class);
+        $this->call(CatCuentasSeeder::class);
+
     }
 }
