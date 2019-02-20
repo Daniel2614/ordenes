@@ -35,13 +35,13 @@ class OrdenesRequest extends FormRequest
             //'recepcion'         => 'required',
             //'fechaRecepcion'    => 'required',
             'rpand'             => 'required',
-            //'proPresupuestal[]'   => 'required',
-            'numPartida'        => 'required',
-            'rfc'               => 'required',
-            'importeParcial'    => 'required',
-            'nombre'            => 'required',
+            'proPresupuestal.*'   => 'required',
+            'numPartida.*'        => 'required',
+            'rfc.*'               => 'required',
+            'importeParcial.*'    => 'required',
+            'nombre.*'            => 'required',
             //'organizacion'      => 'required',
-            'concepto'          => 'required'
+            'concepto.*'          => 'required'
         ];
     }
 }
