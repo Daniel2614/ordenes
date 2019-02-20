@@ -8,7 +8,7 @@ class OrdenPago extends Model
 {
      protected $table = 'orden_pago';
 	  protected $fillable = [
-	    	'areaT',
+	    	'idArea',
 			'tipoT',
 			'sujeto',
 			'fondoR',
@@ -33,6 +33,6 @@ class OrdenPago extends Model
     }
     public function area()
     {
-        return $this->hasOne('App\EstructuraPresupuestal','id');
+        return $this->hasOne('App\EstructuraPresupuestal','id','idArea');
     }
 }
