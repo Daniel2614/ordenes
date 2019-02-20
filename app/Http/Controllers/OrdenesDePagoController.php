@@ -118,7 +118,7 @@ class OrdenesDePagoController extends Controller
     {
         setlocale(LC_TIME, 'Spanish');
         $orden = OrdenPago::with('datos','area')->find($id);
-         dd($orden->area);
+         // dd($orden->area);
         $fecha = new Date($orden->fechaEla);
         $vistaurl = 'Ordenes de pago.OrdenDePago';
         $view = \View::make('Ordenes de pago.OrdenDePago',[
