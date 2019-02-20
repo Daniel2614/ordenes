@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\OrdenesRequest;
 use App\OrdenPago;
 use App\datos_orden;
+use App\EstructuraPresupuestal;
 use Jenssegers\Date\Date;
 use NumerosEnLetras;
 use PDF;
@@ -31,6 +32,7 @@ class OrdenesDePagoController extends Controller
      */
     public function create()
     {
+        $areas = EstructuraPresupuestal::select('id','descripcion')->get();
         $tipoTramite = array(
             null                  => 'SELECCIONE UNA OPCIÓN',
             'PAGO DIRECTO'        => 'PAGO DIRECTO',
@@ -38,7 +40,7 @@ class OrdenesDePagoController extends Controller
             'FONDO REVOLVENTE'    => 'FONDO REVOLVENTE',
             'COMPROBACIÓN'        => 'COMPROBACIÓN'
         );
-        return view('Ordenes de pago.showOrdenesDePago',compact('tipoTramite'));
+        return view('Ordenes de pago.showOrdenesDePago',compact('tipoTramite','areas'));
     }
 
     /**
@@ -49,7 +51,7 @@ class OrdenesDePagoController extends Controller
      */
     public function store(OrdenesRequest $request)
     {
-        //dd($request->all());
+        dd($request->all());
         $mensaje = null;
         $data = null;
         \DB::beginTransaction();
@@ -72,9 +74,6 @@ class OrdenesDePagoController extends Controller
                 'organizacion'      => $request->organizacion,
             ]);
             foreach ($request->proPresupuestal as $key => $value) {
-                /*if(isset($request->proPresupuestal)){
-                    // dd($key);
-                };*/
                 $newDatosOrden = datos_orden::create([
                     'idOP'              => $newOrden->id,
                     'programaP'         => $value,
@@ -84,14 +83,6 @@ class OrdenesDePagoController extends Controller
                     'importetotal'      => $request->importeParcial[$key],
                 ]);
             };
-            /*$newDatosOrden = datos_orden::create([
-                'idOP'              => $newOrden->id,
-                'programaP'         => $request->proPresupuestal,
-                'noPartida'         => $request->numPartida,
-                'concepto'          => $request->concepto,
-                'importeParcial'    => $request->importeParcial,
-                'importetotal'      => $request->importeParcial,
-            ]);*/
             \DB::commit();
             $tipo = 'success';
             $estatus= true;
@@ -104,10 +95,7 @@ class OrdenesDePagoController extends Controller
             \DB::rollback();
         }
         return response()->json(array('estatus' => $estatus, 'mensaje' => $mensaje, 'tipo' => $tipo, 'data' => $data));
-
-
         //return response()->json($newOrden);
-
     }
 
     /**
