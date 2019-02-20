@@ -9,9 +9,12 @@ class CatCuentasContables extends Model
     protected $table = 'controlf_catcuentascontables';
   protected $fillable = [
   	'id',
-    'codigo_obgasto',
-    'nombre_obgasto',
-    'obgasto_padre',
+    'codigo',
+    'nombre',
+    'cuenta_padre',
+    'naturaleza',
+    'tipo',
+    'saldo_inicial',
     'estatus'
   ];
 }
