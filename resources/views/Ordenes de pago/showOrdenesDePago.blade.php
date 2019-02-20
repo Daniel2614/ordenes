@@ -16,9 +16,9 @@
         <div class="card-body">
             {!! Form::open(['id'=>'formNewOrden','novalidate','class'=>'needs-validation','route' => 'ordenes.store', 'method'=>'POST']) !!}
                 <div class="row pb-3">
-                    <div class="col-9">
+                    <div class="col-6">
                         {{ Form::label('area', 'ÁREA QUE TRAMITA:') }}
-                        {{ Form::text('area',null,array('required','class'=>'form-control mayuscula'. ( $errors->has('area') ? ' is-invalid' : '' ),'title'=>'Área que tramita')) }}
+                        {{ Form::select('area',$areas,null,array('required','class'=>'form-control mayuscula'. ( $errors->has('area') ? ' is-invalid' : '' ),'title'=>'Área que tramita')) }}
                         <div id="error_area" class="invalid-feedback">{{ $errors->first('area') }}</div>
                     </div>
                     <div class="col-3">
@@ -26,13 +26,13 @@
                         {{ Form::select('tramite',$tipoTramite,null,array('required','class'=>'form-control','title'=>'Tipo de trámite')) }}
                         <div id="error_tramite"></div>
                     </div>
-                </div>
-                <div class="row pb-3">
                     <div class="col-3">
                         {{ Form::label('numTramite', 'N° TRÁMITE:') }}
                         {{ Form::text('numTramite',null,array('required','class'=>'form-control mayuscula','title'=>'Número de trámite')) }}
                         <div id="error_numTramite"></div>
                     </div>
+                </div>
+                <div class="row pb-3">
                     <div class="col-3">
                         {{ Form::label('fechaElaboracion', 'FECHA DE ELABORACIÓN:') }}
                         {{ Form::date('fechaElaboracion',null,array('required','class'=>'form-control','title'=>'Fecha de elaboración')) }}
@@ -40,16 +40,14 @@
                     </div>
                     <div class="col-3">
                         {{ Form::label('oc', 'O.C. :') }}
-                        {{ Form::text('oc',null,array('required','class'=>'form-control mayuscula','title'=>'')) }}
-                        <div id="error_oc"></div>
+                        {{ Form::text('oc',null,array('class'=>'form-control mayuscula','title'=>'')) }}
+                        <!--<div id="error_oc"></div>-->
                     </div>
                     <div class="col-3">
                         {{ Form::label('fechaOC', 'FECHA:') }}
-                        {{ Form::date('fechaOC',null,array('required','class'=>'form-control','title'=>'Fecha')) }}
-                        <div id="error_fechaOC"></div>
+                        {{ Form::date('fechaOC',null,array('class'=>'form-control','title'=>'Fecha')) }}
+                        <!--<div id="error_fechaOC"></div>-->
                     </div>
-                </div>
-                <div class="row pb-3">
                     <div class="col-3">
                         {{ Form::label('importeOrden', 'IMPORTE DE LA ORDEN:') }}
                         <div class="input-group mb-2 mr-sm-2">
@@ -60,20 +58,27 @@
                             <div id="error_importeOrden"></div>
                         </div>
                     </div>
-                    <div class="col-3">
-                        {{ Form::label('letraImporte', 'LETRA DE IMPORTE:') }}
-                        {{ Form::text('letraImporte',null,array('required','class'=>'form-control mayuscula','title'=>'Letra de importe')) }}
+                </div>
+                <div class="row pb-3">
+                    <!--<div class="col-3">
+                        {-- {{ Form::label('letraImporte', 'LETRA DE IMPORTE:') }} --}
+                        {-- {{ Form::text('letraImporte',null,array('required','class'=>'form-control mayuscula','title'=>'Letra de importe')) }} --}
                         <div id="error_letraImporte"></div>
-                    </div>
+                    </div>-->
                     <div class="col-3">
                         {{ Form::label('recepcion', 'RECEPCIÓN:') }}
-                        {{ Form::text('recepcion',null,array('required','class'=>'form-control mayuscula','title'=>'Recepción')) }}
-                        <div id="error_recepcion"></div>
+                        {{ Form::text('recepcion',null,array('class'=>'form-control mayuscula','title'=>'Recepción')) }}
+                        <!--<div id="error_recepcion"></div>-->
                     </div>
                     <div class="col-3">
                         {{ Form::label('fechaRecepcion', 'FECHA:') }}
-                        {{ Form::date('fechaRecepcion',null,array('required','class'=>'form-control','title'=>'Fecha')) }}
-                        <div id="error_fechaRecepcion"></div>
+                        {{ Form::date('fechaRecepcion',null,array('class'=>'form-control','title'=>'Fecha')) }}
+                        <!--<div id="error_fechaRecepcion"></div>-->
+                    </div>
+                    <div class="col-6">
+                        {{ Form::label('rpand', 'REALIZAR PAGO A NOMBRE DE:') }}
+                        {{ Form::text('rpand',null,array('class'=>'form-control mayuscula','title'=>'Recepción')) }}
+                        <!--<div id="error_recepcion"></div>-->
                     </div>
                 </div>
                 <hr class="my-4">

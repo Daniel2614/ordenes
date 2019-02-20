@@ -7,6 +7,7 @@ use App\Http\Requests\OrdenesRequest;
 use App\OrdenPago;
 use App\datos_orden;
 use App\EstructuraPresupuestal;
+use App\provBenef;
 use Jenssegers\Date\Date;
 use NumerosEnLetras;
 use PDF;
@@ -32,7 +33,7 @@ class OrdenesDePagoController extends Controller
      */
     public function create()
     {
-        $areas = EstructuraPresupuestal::select('id','descripcion')->get();
+        $areas = EstructuraPresupuestal::all()->pluck('descripcion', 'id');
         $tipoTramite = array(
             null                  => 'SELECCIONE UNA OPCIÓN',
             'PAGO DIRECTO'        => 'PAGO DIRECTO',
