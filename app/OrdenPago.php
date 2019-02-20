@@ -16,6 +16,7 @@ class OrdenPago extends Model
 			'OC',
 			'fechaOC',
 			'importeOrden',
+			'fechaEla',
 			'recepcion',
 			'fechaRecepcion',
 			'rpand',
