@@ -68,8 +68,8 @@ table, th, td {
 </table>
 </div>
 
-<hr class="my-1" style="border-top:1px solid rgba(0, 0, 0, 0)">
-<table style="text-align:center;font-size:12px; width: 100%">
+
+<table style="text-align:center;font-size:12px; width: 100%; margin-top: 5px;" >
 
     <tr scope="row">
         <td width="100px">INSTRUCCIÓN</td>
@@ -77,8 +77,8 @@ table, th, td {
         <td colspan="6">{{$orden->rpand}} </td>
     </tr>
 </table>
-<hr class="my-1" style="border-top:1px solid rgba(0, 0, 0, 0)">
-<table style="text-align:center;font-size:12px; width: 100%">
+
+<table style="text-align:center;font-size:12px; width: 100%; margin-top: 5px;" >
     
     <tr scope="row">
         <td rowspan="2">ORGANIZACION</td>
@@ -95,10 +95,10 @@ table, th, td {
         <td>TOTAL</td>
     </tr>
     <tr scope="row">
-            <td>{{$orden->area->organizacion}} </td>
-            <td>{{$orden->area->proPresupuestal}} </td>
+            <td rowspan="{{$orden->datos->count()}}">{{$orden->area->organizacion}} </td>
+            <td  rowspan="{{$orden->datos->count()}}">{{$orden->area->proPresupuestal}} </td>
     @foreach( $orden->datos as $dato )
-           <td>{{$dato->partida->codigo_obgasto}}</td>
+           <td >{{$dato->partida->codigo_obgasto}}</td>
            <td>
                @foreach ($dato->proveedores as $proveedor)
                 <b>•</b> {{$proveedor->rfc}} <br>
@@ -120,8 +120,9 @@ table, th, td {
                @endforeach
            </td>
             <td><b>${{$dato->importePartida}}</b></td>
-        <br><br>
+        <br><br> </tr>
+
     @endforeach
 
-        </tr>
+       
 </table>
