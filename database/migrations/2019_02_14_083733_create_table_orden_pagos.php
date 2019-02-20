@@ -21,10 +21,10 @@ class CreateTableOrdenPagos extends Migration
             $table->foreign('idArea')->references('id')->on('controlf_estructurapresupuestal');
             $table->enum('tipoT', ['PAGO DIRECTO', 'SUJETO A COMPROBAR','FONDO REVOLVENTE','COMPROBACIÓN']);//tipo de TRAMITE
             $table->string('noTramite');//número de trámite
+            $table->date('fechaEla');//fecha de elaboración
             $table->string('OC')->nullable();//NO SE QUE CHINGADOS ES OC
             $table->date('fechaOC')->nullable();
             $table->string('importeOrden');
-            $table->date('fechaEla');//fecha de elaboración
             $table->string('recepcion')->nullable();
             $table->date('fechaRecepcion')->nullable();
             $table->string('rpand');

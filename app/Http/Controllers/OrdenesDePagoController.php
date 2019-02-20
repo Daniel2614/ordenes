@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\OrdenesRequest;
 use App\OrdenPago;
 use App\datos_orden;
+use App\EstructuraPresupuestal;
+use App\provBenef;
+use App\CatObjetoGasto;
 use Jenssegers\Date\Date;
 use NumerosEnLetras;
 use PDF;
@@ -31,6 +34,9 @@ class OrdenesDePagoController extends Controller
      */
     public function create()
     {
+        $areas = EstructuraPresupuestal::all()->pluck('descripcion', 'id');
+        $partidas = CatObjetoGasto::all()->pluck('codigo_obgasto','id');
+        $partidas2 = CatObjetoGasto::select('id','codigo_obgasto')->get();
         $tipoTramite = array(
             null                  => 'SELECCIONE UNA OPCIÓN',
             'PAGO DIRECTO'        => 'PAGO DIRECTO',
@@ -38,7 +44,7 @@ class OrdenesDePagoController extends Controller
             'FONDO REVOLVENTE'    => 'FONDO REVOLVENTE',
             'COMPROBACIÓN'        => 'COMPROBACIÓN'
         );
-        return view('Ordenes de pago.showOrdenesDePago',compact('tipoTramite'));
+        return view('Ordenes de pago.showOrdenesDePago',compact('tipoTramite','areas','partidas','partidas2'));
     }
 
     /**
@@ -56,47 +62,42 @@ class OrdenesDePagoController extends Controller
         try
         {
             $newOrden = OrdenPago::create([
-                'areaT'             => $request->area,
+                'idArea'             => $request->area,
                 'tipoT'             => $request->tramite,
                 'noTramite'         => $request->numTramite,
                 'fechaEla'          => $request->fechaElaboracion,
-                'OC'                => $request->oc,
-                'fechaOC'           => $request->fechaOC,
-                'recepcion'         => $request->recepcion,
-                'fechaRecepcion'    => $request->fechaRecepcion,
                 'importeOrden'      => $request->importeOrden,
-                'nombre'            => $request->nombre,
-                'primerAp'          => $request->primerAP,
-                'segundoAp'         => $request->segundoAP,
-                'rfc'               => $request->rfc,
-                'organizacion'      => $request->organizacion,
+                'rpand'             => $request->rpand,
+                //'rfc'               => $request->rfc,
+                //'organizacion'      => $request->organizacion,
+                'p1'                => ':U',
+                'p2'                => ':V',
+                'p3'                => 'e.e'
             ]);
             foreach ($request->proPresupuestal as $key => $value) {
-                /*if(isset($request->proPresupuestal)){
-                    // dd($key);
-                };*/
                 $newDatosOrden = datos_orden::create([
                     'idOP'              => $newOrden->id,
-                    'programaP'         => $value,
-                    'noPartida'         => $request->numPartida[$key],
+                    'idPartida'         => $request->numPartida[$key],
+                    'importePartida'    => $request->importeParcial[$key],
+                    //'programaP'         => $value,
+                    //'noPartida'         => $request->numPartida[$key],
+                    //'concepto'          => $request->concepto[$key],
+                    //'importeParcial'    => $request->importeParcial[$key],
+                    //'importetotal'      => $request->importeParcial[$key],
+                ]);
+                $newProvBen = provBenef::create([
+                    'idDatosOrden'      => $newDatosOrden->id,
+                    'rfc'               => $request->rfc[$key],
+                    'nombre'            => $request->nombre[$key],
                     'concepto'          => $request->concepto[$key],
-                    'importeParcial'    => $request->importeParcial[$key],
-                    'importetotal'      => $request->importeParcial[$key],
+                    'importeParcial'    => $request->importeParcial[$key]
                 ]);
             };
-            /*$newDatosOrden = datos_orden::create([
-                'idOP'              => $newOrden->id,
-                'programaP'         => $request->proPresupuestal,
-                'noPartida'         => $request->numPartida,
-                'concepto'          => $request->concepto,
-                'importeParcial'    => $request->importeParcial,
-                'importetotal'      => $request->importeParcial,
-            ]);*/
             \DB::commit();
             $tipo = 'success';
             $estatus= true;
             $mensaje = 'Los datos se guardaron correctamente';
-            $data = [$newOrden,$newDatosOrden];
+            $data = [$newOrden,$newDatosOrden,$newProvBen];
         } catch (\Exception $e) {
             $tipo = 'errors';
             $estatus= false;
@@ -104,10 +105,7 @@ class OrdenesDePagoController extends Controller
             \DB::rollback();
         }
         return response()->json(array('estatus' => $estatus, 'mensaje' => $mensaje, 'tipo' => $tipo, 'data' => $data));
-
-
         //return response()->json($newOrden);
-
     }
 
     /**
@@ -120,6 +118,7 @@ class OrdenesDePagoController extends Controller
     {
         setlocale(LC_TIME, 'Spanish');
         $orden = OrdenPago::with('datos','area')->find($id);
+         // dd($orden->area);
         $fecha = new Date($orden->fechaEla);
         $vistaurl = 'Ordenes de pago.OrdenDePago';
         $view = \View::make('Ordenes de pago.OrdenDePago',[
@@ -127,7 +126,7 @@ class OrdenesDePagoController extends Controller
             'fecha'      =>$fecha,
 
         ])->with(["page" => "reporte"])->render();
-    
+       
         $pdf = \App::make('dompdf.wrapper');
         $pdf->setPaper("A4", "landscape");
         $pdf->loadHTML($view);

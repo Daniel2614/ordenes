@@ -13,7 +13,7 @@ class CreateTableProvBenef extends Migration
      */
     public function up()
     {
-        Schema::create('table_prov_benef', function (Blueprint $table) {
+        Schema::create('prov_benef', function (Blueprint $table) {
             $table->increments('id');
             $table->string('rfc');
             $table->integer('idDatosOrden')->unsigned();
