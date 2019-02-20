@@ -77,49 +77,49 @@
                     </div>
                     <div class="col-6">
                         {{ Form::label('rpand', 'REALIZAR PAGO A NOMBRE DE:') }}
-                        {{ Form::text('rpand',null,array('class'=>'form-control mayuscula','title'=>'Recepción')) }}
-                        <!--<div id="error_recepcion"></div>-->
+                        {{ Form::text('rpand',null,array('class'=>'form-control mayuscula','title'=>'Realizar pago a nombre de')) }}
+                        <div id="error_rpand"></div>
                     </div>
                 </div>
-                <hr class="my-4">
-                <div class="row pb-3">
+                <!--<hr class="my-4">-->
+                <!--<div class="row pb-3">
                     <div class="col-3">
-                        {{ Form::label('nombre', 'NOMBRE(S):') }}
-                        {{ Form::text('nombre',null,array('required','class'=>'form-control mayuscula','title'=>'Nombre(s) de la persona')) }}
+                        {-- {{ Form::label('nombre', 'NOMBRE(S):') }} --}
+                        {-- {{ Form::text('nombre',null,array('required','class'=>'form-control mayuscula','title'=>'Nombre(s) de la persona')) }} --}
                         <div id="error_nombre"></div>
                     </div>
                     <div class="col-3">
-                        {{ Form::label('primerAP', 'PRIMER APELLIDO:') }}
-                        {{ Form::text('primerAP',null,array('required','class'=>'form-control mayuscula','title'=>'Primer apellido de la persona')) }}
+                        {-- {{ Form::label('primerAP', 'PRIMER APELLIDO:') }} --}
+                        {-- {{ Form::text('primerAP',null,array('required','class'=>'form-control mayuscula','title'=>'Primer apellido de la persona')) }} --}
                         <div id="error_primerAP"></div>
                     </div>
                     <div class="col-3">
-                        {{ Form::label('segundoAP', 'SEGUNDO APELLIDO:') }}
-                        {{ Form::text('segundoAP',null,array('required','class'=>'form-control mayuscula','title'=>'Segundo apellido de la persona')) }}
+                        {-- {{ Form::label('segundoAP', 'SEGUNDO APELLIDO:') }} --}
+                        {-- {{ Form::text('segundoAP',null,array('required','class'=>'form-control mayuscula','title'=>'Segundo apellido de la persona')) }} --}
                         <div id="error_segundoAP"></div>
                     </div>
                     <div class="col-3">
-                        {{ Form::label('rfc', 'R.F.C. :') }}
-                        {{ Form::text('rfc',null,array('required','class'=>'form-control mayuscula','title'=>'R.F.C. de la persona')) }}
-                        <div id="error_rfc"></div>
-                    </div>
-                </div>
-                <hr class="my-4">
-                <div class="row pb-3">
-                    <div class="col-3">
                         {{ Form::label('organizacion', 'ORGANIZACIÓN:') }}
-                        {{ Form::text('organizacion','401A06100',array('id'=>'organizacion','required','class'=>'form-control mayuscula','title'=>'Organización')) }}
+                        {{ Form::text('organizacion','100',array('id'=>'organizacion','required','class'=>'form-control mayuscula','title'=>'Organización')) }}
                         <div id="error_organizacion"></div>
                     </div>
+                </div>-->
+                <hr class="my-4">
+                <div class="row pb-3">
                     <div class="col-3">
                         {{ Form::label('proPresupuestal', 'PROGRAMA PRESUPUESTAL:') }}
                         {{ Form::text('proPresupuestal[]',null,array('id'=>'proPresupuestal','required','class'=>'form-control mayuscula','title'=>'Programa presupuestal')) }}
                         <div id="error_proPresupuestal"></div>
                     </div>
                     <div class="col-3">
-                        {{ Form::label('numPartida', 'N° DE PARTIDA:') }}
-                        {{ Form::text('numPartida[]',null,array('id'=>'numPartida','required','class'=>'form-control soloNumeros','title'=>'Número de partida')) }}
+                        {{ Form::label('numPartida', 'NO. DE PARTIDA:') }}
+                        {{ Form::select('numPartida[]',$partidas,null,array('id'=>'numPartida','required','class'=>'form-control soloNumeros','title'=>'Número de partida')) }}
                         <div id="error_numPrtida"></div>
+                    </div>
+                    <div class="col-3">
+                        {{ Form::label('rfc', 'R.F.C. :') }}
+                        {{ Form::text('rfc[]',null,array('id'=>'rfc','required','class'=>'form-control mayuscula','title'=>'R.F.C.')) }}
+                        <div id="error_rfc"></div>
                     </div>
                     <div class="col-3">
                         {{ Form::label('importeParcial', 'IMPORTE PARCIAL:') }}
@@ -134,14 +134,19 @@
                 </div>
                 <div class="row pb-3">
                     <div class="col-12">
+                        {{ Form::label('nombre', 'NOMBRE:') }} 
+                        {{ Form::text('nombre[]',null,array('id'=>'nombre','required','class'=>'form-control mayuscula','title'=>'Nombre')) }}
+                        <div id="error_nombre"></div>
+                    </div>
+                    <div class="col-12">
                         {{ Form::label('concepto', 'CONCEPTO:') }}
                         {{ Form::textarea('concepto[]',null,array('id'=>'concepto','required','size' => '50x3','class'=>'form-control mayuscula','title'=>'Concepto')) }}
                         <div id="error_concepto"></div>
                     </div>
                 </div>
+                <hr id="plus" class="my-4">
                 <div id="nuevoConcepto" class="col-md-12">
                 </div>
-                <hr id="plus" class="my-4">
                 <div id="footer-buttons col-md-12">
                     <button type="button" class="btn btn-secondary btn-lg"  id="otroConcepto">Nuevo Concepto</button>
                     {!! Form::submit('Guardar', ['class' => 'btn btn-primary btn-lg','id'=>'guardarOrden']) !!} 
@@ -177,9 +182,16 @@
                 }
             };
             num=num+1;
-            var concepto = '<div id="newConcepto_'+num+'" name="plusConcepto" class="row pb-3"><div class="col-3">{{ Form::label("proPresupuestal_'+num+'", "PROGRAMA PRESUPUESTAL:") }}<input type="text" class="form-control mayuscula" title="Programa presupuestal" name="proPresupuestal[]" id="proPresupuestal_'+num+'" required><div id="error_proPresupuestal_'+num+'"></div></div><div class="col-3">{{ Form::label("numPartida_'+num+'", "N° DE PARTIDA:") }}<input type="text" class="form-control soloNumeros" title="Número de partida" name="numPartida[]" id="numPartida_'+num+'" required><div id="error_numPrtida_'+num+'"></div></div><div class="col-3">{{ Form::label("importeParcial_'+num+'", "IMPORTE PARCIAL:") }}<div class="input-group mb-2 mr-sm-2"><div class="input-group-prepend"><div class="input-group-text">$</div></div><input type="text" class="form-control soloNumeros decimales" title="Importe parcial" name="importeParcial[]" id="importeParcial_'+num+'" required><div id="error_importeParcial_'+num+'"></div></div></div></div><div class="row pb-3"><div class="col-12">{{ Form::label("concepto_'+num+'", "CONCEPTO:") }}<textarea class="form-control mayuscula" title="Concepto" cols="50" rows="3" name="concepto[]" id="concepto_'+num+'" required></textarea><div id="error_concepto_'+num+'"></div></div></div></div><hr class="my-1">';
+            var concepto = '';
+            concepto = concepto + '<div id="newConcepto_'+num+'" name="plusConcepto" class="row pb-3">';
+            concepto = concepto + '<div class="col-3">{{ Form::label("proPresupuestal_'+num+'", "PROGRAMA PRESUPUESTAL:") }}<input type="text" class="form-control mayuscula" title="Programa presupuestal" name="proPresupuestal[]" id="proPresupuestal_'+num+'" required><div id="error_proPresupuestal_'+num+'"></div></div>';
+            concepto = concepto + '<div class="col-3">{{ Form::label("numPartida_'+num+'", "N° DE PARTIDA:") }}<select class="form-control" id="numPartida_'+num+'" name="numPartida[]" title="Número de partida"  required>@foreach ($partidas2 as $par)<option value="{{ $par->id }}">{{ $par->codigo_obgasto }}</option>@endforeach</select><div id="error_numPrtida_'+num+'"></div></div>';
+            concepto = concepto + '<div class="col-3">{{ Form::label('rfc', 'R.F.C. :') }}<input type="text" class="form-control mayuscula" title="R.F.C." name="rfc[]" id="rfc_'+num+'" required><div id="error_rfc"></div></div>';
+            concepto = concepto + '<div class="col-3">{{ Form::label("importeParcial_'+num+'", "IMPORTE PARCIAL:") }}<div class="input-group mb-2 mr-sm-2"><div class="input-group-prepend"><div class="input-group-text">$</div></div><input type="text" class="form-control soloNumeros decimales" title="Importe parcial" name="importeParcial[]" id="importeParcial_'+num+'" required><div id="error_importeParcial_'+num+'"></div></div></div></div>';
+            concepto = concepto + '<div class="row pb-3"><div class="col-12">{{ Form::label('nombre', 'NOMBRE:') }}<input type="text" class="form-control mayuscula" title="Nombre" name="nombre[]" id="nombre_'+num+'" required><div id="error_nombre"></div></div>';
+            concepto = concepto + '<div class="col-12">{{ Form::label("concepto_'+num+'", "CONCEPTO:") }}<textarea class="form-control mayuscula" title="Concepto" cols="50" rows="3" name="concepto[]" id="concepto_'+num+'" required></textarea><div id="error_concepto_'+num+'"></div></div></div>';
+            concepto = concepto + '</div><hr class="my-1">';
             $("#nuevoConcepto").append(concepto);
-
         });
     });
 </script>
