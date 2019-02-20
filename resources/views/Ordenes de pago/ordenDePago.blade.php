@@ -26,8 +26,11 @@ td{
     </tr>
     <tr scope="row">
         <td colspan="2">TIPO DE TRAMITE</td>
-        <td>{{$orden->tipoT}}</td>
-        <td></td>
+        <td>PAGO DIRECTO</td>
+        <td>@if($orden->tipoT=='PAGO DIRECTO')
+            <hr>
+            @endif
+        </td>
         <td>SUJETO A<br>COMPROBAR</td>
         <td></td>
         <td colspan="2">FONDO<br>REVOLVENTE</td>
