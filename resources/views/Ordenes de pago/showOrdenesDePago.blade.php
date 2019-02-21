@@ -1,7 +1,8 @@
 @extends('Template.main')
 
 @section('css')
-
+<link href="{{ asset('plugins/Select2/css/Edit/select2.css') }}" rel="stylesheet">
+<!--<link href="{{ asset('plugins/Select2/css/Bootstrap4/select2-bootstrap4.min.css') }}" rel="stylesheet">-->
 @endsection
 
 @section('title')
@@ -18,12 +19,12 @@
                 <div class="row pb-3">
                     <div class="col-6">
                         {{ Form::label('area', 'ÁREA QUE TRAMITA:') }}
-                        {{ Form::select('area',$areas,null,array('required','class'=>'form-control mayuscula'. ( $errors->has('area') ? ' is-invalid' : '' ),'title'=>'Área que tramita')) }}
+                        {{ Form::select('area',$areas,null,array('required','class'=>'form-control mayuscula select2 areas'. ( $errors->has('area') ? ' is-invalid' : '' ),'title'=>'Área que tramita')) }}
                         <div id="error_area" class="invalid-feedback">{{ $errors->first('area') }}</div>
                     </div>
                     <div class="col-3">
                         {{ Form::label('tramite', 'TIPO DE TRÁMITE:') }}
-                        {{ Form::select('tramite',$tipoTramite,null,array('required','class'=>'form-control'. ( $errors->has('tramite') ? ' is-invalid' : '' ),'title'=>'Tipo de trámite')) }}
+                        {{ Form::select('tramite',$tipoTramite,null,array('required','class'=>'form-control select2'. ( $errors->has('tramite') ? ' is-invalid' : '' ),'title'=>'Tipo de trámite')) }}
                         <div id="error_tramite" class="invalid-feedback">{{ $errors->first('tramite') }}</div>
                     </div>
                     <div class="col-3">
@@ -85,12 +86,18 @@
                     </div>
                     <div class="col-3">
                         {{ Form::label('numPartida', 'NO. DE PARTIDA:') }}
-                        {{ Form::select('numPartida[]',$partidas,null,array('id'=>'numPartida','required','class'=>'form-control soloNumeros'. ( $errors->has('numPartida.*') ? ' is-invalid' : '' ),'title'=>'Número de partida')) }}
+                        {{ Form::select('numPartida[]',$partidas,null,array('id'=>'numPartida','required','class'=>'form-control soloNumeros select2 gastos'. ( $errors->has('numPartida.*') ? ' is-invalid' : '' ),'title'=>'Número de partida')) }}
                         <div id="error_numPrtida" class="invalid-feedback">{{ $errors->first('numPartida.*') }}</div>
                     </div>
+                    <div class="col-6">
+                        {{ Form::label('nombrePartida', 'NOMBRE DE PARTIDA:') }}
+                        {{ Form::text('nombrePartida[]',null,array('id'=>'nombrePartida','class'=>'form-control mayuscula','title'=>'Nombre de Partida','disabled')) }}
+                    </div>
+                </div>
+                <div class="row pb-3">
                     <div class="col-3">
                         {{ Form::label('rfc', 'R.F.C. :') }}
-                        {{ Form::text('rfc[]',null,array('id'=>'rfc','required','class'=>'form-control mayuscula'. ( $errors->has('rfc.*') ? ' is-invalid' : '' ),'title'=>'R.F.C.')) }}
+                        {{ Form::text('rfc[]',null,array('id'=>'rfc','maxlength'=>'15','required','class'=>'form-control mayuscula'. ( $errors->has('rfc.*') ? ' is-invalid' : '' ),'title'=>'R.F.C.')) }}
                         <div id="error_rfc" class="invalid-feedback">{{ $errors->first('rfc.*') }}</div>
                     </div>
                     <div class="col-3">
@@ -103,13 +110,13 @@
                             <div id="error_importeParcial" class="invalid-feedback">{{ $errors->first('importeParcial.*') }}</div>
                         </div>
                     </div>
-                </div>
-                <div class="row pb-3">
-                    <div class="col-12">
+                    <div class="col-6">
                         {{ Form::label('nombre', 'NOMBRE:') }} 
                         {{ Form::text('nombre[]',null,array('id'=>'nombre','required','class'=>'form-control mayuscula'. ( $errors->has('nombre.*') ? ' is-invalid' : '' ),'title'=>'Nombre')) }}
                         <div id="error_nombre" class="invalid-feedback">{{ $errors->first('nombre.*') }}</div>
                     </div>
+                </div>
+                <div class="row pb-3">
                     <div class="col-12">
                         {{ Form::label('concepto', 'CONCEPTO:') }}
                         {{ Form::textarea('concepto[]',null,array('id'=>'concepto','required','size' => '50x3','class'=>'form-control mayuscula'. ( $errors->has('concepto.*') ? ' is-invalid' : '' ),'title'=>'Concepto')) }}
@@ -130,8 +137,25 @@
 @endsection
 
 @section('scripts')
+<script src="{{ asset('plugins/Select2/js/select2.min.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+        var ordenes = "{{ route('ordenes.index') }}";
+
+        $(".select2").select2({
+            //theme: "bootstrap4"
+        });
+
+        $(document).on('focus', '.select2', function (e) {
+            if (e.originalEvent) {
+              $(this).siblings('select').select2('open');
+            }
+        });
+        
+        /*$(document).on('focusout', '.select2-container--open', function (e) {
+            console.log('HOLAAAAA')
+        });*/
+
         $(".decimales").on({
             "focus": function(event) {
                 $(event.target).select();
@@ -156,14 +180,75 @@
             num=num+1;
             var concepto = '';
             concepto = concepto + '<div id="newConcepto_'+num+'" name="plusConcepto" class="row pb-3">';
-            concepto = concepto + '<div class="col-3">{{ Form::label("proPresupuestal_'+num+'", "PROGRAMA PRESUPUESTAL:") }}<input type="text" class="form-control mayuscula {{ $errors->has("proPresupuestal.*") ? " is-invalid" : "" }}" title="Programa presupuestal" name="proPresupuestal[]" id="proPresupuestal_'+num+'" required><div id="error_proPresupuestal_'+num+'" class="invalid-feedback">{{ $errors->first("proPresupuestal.*") }}</div></div>';
-            concepto = concepto + '<div class="col-3">{{ Form::label("numPartida_'+num+'", "N° DE PARTIDA:") }}<select class="form-control {{ $errors->has("numPartida.*") ? " is-invalid" : "" }}" id="numPartida_'+num+'" name="numPartida[]" title="Número de partida"  required>@foreach ($partidas2 as $par)<option value="{{ $par->id }}">{{ $par->codigo_obgasto }}</option>@endforeach</select><div id="error_numPrtida_'+num+'" class="invalid-feddback">{{ $errors->first("numPartida.*") }}</div></div>';
-            concepto = concepto + '<div class="col-3">{{ Form::label('rfc', 'R.F.C. :') }}<input type="text" class="form-control mayuscula {{ $errors->has("rfc.*") ? " is-invalid" : "" }}" title="R.F.C." name="rfc[]" id="rfc_'+num+'" required><div id="error_rfc" class="invalid-feedback">{{ $errors->first("rfc.*") }}</div></div>';
-            concepto = concepto + '<div class="col-3">{{ Form::label("importeParcial_'+num+'", "IMPORTE PARCIAL:") }}<div class="input-group mb-2 mr-sm-2"><div class="input-group-prepend"><div class="input-group-text">$</div></div><input type="text" class="form-control soloNumeros decimales {{ $errors->has("importeParcial.*") ? " is-invalid" : "" }}" title="Importe parcial" name="importeParcial[]" id="importeParcial_'+num+'" required><div id="error_importeParcial_'+num+'" class="invalid-feedback">{{ $errors->first("importeParcial.*") }}</div></div></div></div>';
-            concepto = concepto + '<div class="row pb-3"><div class="col-12">{{ Form::label('nombre', 'NOMBRE:') }}<input type="text" class="form-control mayuscula {{ $errors->has("nombre.*") ? " is-invalid" : "" }}" title="Nombre" name="nombre[]" id="nombre_'+num+'" required><div id="error_nombre" class="invalid-feedback">{{ $errors->first("nombre.*") }}</div></div>';
-            concepto = concepto + '<div class="col-12">{{ Form::label("concepto_'+num+'", "CONCEPTO:") }}<textarea class="form-control mayuscula {{ $errors->has("concepto.*") ? " is-invalid" : "" }}" title="Concepto" cols="50" rows="3" name="concepto[]" id="concepto_'+num+'" required></textarea><div id="error_concepto_'+num+'" class="invalid-feedback">{{ $errors->first("concepto.*") }}</div></div></div>';
+            concepto = concepto + '<div class="col-3">{{ Form::label("proPresupuestal_'+num+'", "PROGRAMA PRESUPUESTAL:") }}<input type="text" value="'+$("#proPresupuestal").val()+'" class="form-control mayuscula {{ $errors->has("proPresupuestal.*") ? " is-invalid" : "" }}" title="Programa presupuestal" name="proPresupuestal[]" id="proPresupuestal_'+num+'" required disabled><div id="error_proPresupuestal_'+num+'" class="invalid-feedback">{{ $errors->first("proPresupuestal.*") }}</div></div>';
+            concepto = concepto + '<div class="col-3">{{ Form::label("numPartida_'+num+'", "N° DE PARTIDA:") }}<select class="form-control select2 {{ $errors->has("numPartida.*") ? " is-invalid" : "" }}" id="numPartida_'+num+'" name="numPartida[]" title="Número de partida"  required>@foreach ($partidas2 as $par)<option value="{{ $par->id }}">{{ $par->codigo_obgasto }}</option>@endforeach</select><div id="error_numPrtida_'+num+'" class="invalid-feddback">{{ $errors->first("numPartida.*") }}</div></div>';
+            concepto = concepto + '<div class="col-6">{{ Form::label("nombrePartida_'+num+'", "NOMBRE DE PARTIDA:") }}<input type="text" name="nombrePartida[]" class="form-control mayuscula" title="Nombre de Partida" id="nombrePartida_'+num+'" disabled></div></div>';
+            concepto = concepto + '<div class="row pb-3"><div class="col-3">{{ Form::label('rfc', 'R.F.C. :') }}<input type="text" maxlength="15" class="form-control mayuscula {{ $errors->has("rfc.*") ? " is-invalid" : "" }}" title="R.F.C." name="rfc[]" id="rfc_'+num+'" required><div id="error_rfc" class="invalid-feedback">{{ $errors->first("rfc.*") }}</div></div>';
+            concepto = concepto + '<div class="col-3">{{ Form::label("importeParcial_'+num+'", "IMPORTE PARCIAL:") }}<div class="input-group mb-2 mr-sm-2"><div class="input-group-prepend"><div class="input-group-text">$</div></div><input type="text" class="form-control soloNumeros decimales {{ $errors->has("importeParcial.*") ? " is-invalid" : "" }}" title="Importe parcial" name="importeParcial[]" id="importeParcial_'+num+'" required><div id="error_importeParcial_'+num+'" class="invalid-feedback">{{ $errors->first("importeParcial.*") }}</div></div></div>';
+            concepto = concepto + '<div class="col-6">{{ Form::label('nombre', 'NOMBRE:') }}<input type="text" class="form-control mayuscula {{ $errors->has("nombre.*") ? " is-invalid" : "" }}" title="Nombre" name="nombre[]" id="nombre_'+num+'" required><div id="error_nombre" class="invalid-feedback">{{ $errors->first("nombre.*") }}</div></div></div>';
+            concepto = concepto + '<div class="row pb-3"><div class="col-12">{{ Form::label("concepto_'+num+'", "CONCEPTO:") }}<textarea class="form-control mayuscula {{ $errors->has("concepto.*") ? " is-invalid" : "" }}" title="Concepto" cols="50" rows="3" name="concepto[]" id="concepto_'+num+'" required></textarea><div id="error_concepto_'+num+'" class="invalid-feedback">{{ $errors->first("concepto.*") }}</div></div></div>';
             concepto = concepto + '</div><hr class="my-1">';
             $("#nuevoConcepto").append(concepto);
+            $(".select2").select2({
+                //theme: "bootstrap4"
+            });
+            $(".decimales").on({
+                "focus": function(event) {
+                    $(event.target).select();
+                },
+                "keyup": function(event) {
+                    $(event.target).val(function(index, value) {
+                    return value.replace(/\D/g, "")
+                        .replace(/([0-9])([0-9]{2})$/, '$1.$2')
+                        .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",");
+                    });
+                }
+            });
+            value = $('#numPartida').val();
+            valuePartida = $('#nombrePartida').val();
+            $('#numPartida_'+num).val(value).trigger('change.select2');
+            $('#nombrePartida_'+num).val(valuePartida);
+        });
+
+        $(document).on('change', '.areas', function (e) {
+            value = $('#area').val();
+            $.ajax({
+                type: 'GET',
+                url: ordenes+'/getProgramaPresupuestal/'+value,
+                dataType: 'json',
+                success: function(data) {
+                    var isMyObjectEmpty = !Object.keys(data).length;
+                    if( isMyObjectEmpty == false ){
+                        $('#proPresupuestal').val(data.proPresupuestal);
+                        if( $('#proPresupuestal').val() ){
+                            $( '#proPresupuestal' ).removeClass('is-invalid');
+                            $( '#proPresupuestal' ).addClass('is-valid');
+                        }
+                    }
+                },
+                error: function(data) {
+                    var errors = data.responseJSON;
+                    console.log('NO. '+errors);
+                }
+            });
+        });
+        $(document).on('change', '.gastos', function (e) {
+            value = $('#numPartida').val();
+            $.ajax({
+                type: 'GET',
+                url: ordenes+'/getObjetoGasto/'+value,
+                dataType: 'json',
+                success: function(data) {
+                    var isMyObjectEmpty = !Object.keys(data).length;
+                    if( isMyObjectEmpty == false ){
+                        $("#nombrePartida").val(data.nombre_obgasto);
+                    };
+                },
+                error: function(data) {
+                    var errors = data.responseJSON;
+                    console.log('NO. '+errors);
+                }
+            });
         });
     });
 </script>

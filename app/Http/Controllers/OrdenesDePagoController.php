@@ -104,7 +104,8 @@ class OrdenesDePagoController extends Controller
             $mensaje = $e->getMessage();
             \DB::rollback();
         }
-        return response()->json(array('estatus' => $estatus, 'mensaje' => $mensaje, 'tipo' => $tipo, 'data' => $data));
+        return redirect()->action('OrdenesDePagoController@index');
+        //return response()->json(array('estatus' => $estatus, 'mensaje' => $mensaje, 'tipo' => $tipo, 'data' => $data));
         //return response()->json($newOrden);
     }
 
@@ -167,6 +168,16 @@ class OrdenesDePagoController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function get_pp($id){
+        $getPP = EstructuraPresupuestal::where('id',$id)->select('proPresupuestal')->first();
+
+        return response()->json($getPP);
+    }
+    public function get_og($id){
+        $getOG = CatObjetoGasto::where('id',$id)->select('nombre_obgasto')->first();
+
+        return response()->json($getOG);
     }
     /*public function orden($id){
         setlocale(LC_TIME, 'Spanish');

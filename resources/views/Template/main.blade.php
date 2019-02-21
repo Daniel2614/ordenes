@@ -96,6 +96,7 @@
                     
                     var validation = Array.prototype.filter.call(forms, function(form) {
                         form.addEventListener('focusout', function(event) {
+                            //console.log( $(form).attr("name") );
                             if( $(form).val() == '' ){
                                 $( '#'+$(form).attr("id") ).removeClass('is-valid');
                                 $( '#'+$(form).attr("id") ).addClass('is-invalid');
