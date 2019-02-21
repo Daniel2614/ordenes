@@ -93,6 +93,7 @@
                 'use strict';
                 window.addEventListener('load', function() {
                     var forms = document.getElementsByClassName('form-control');
+                    
                     var validation = Array.prototype.filter.call(forms, function(form) {
                         form.addEventListener('focusout', function(event) {
                             if( $(form).val() == '' ){
