@@ -78,7 +78,7 @@ table, th, td {
     </tr>
 </table>
 
-<table style="text-align:center;font-size:12px; width: 100%; margin-top: 5px;" >
+<table style="text-align:center;font-size:12px; width: 100%; margin-top: 5px;border-style: none;" >
     
     <tr scope="row">
         <td rowspan="2">ORGANIZACION</td>
@@ -97,32 +97,53 @@ table, th, td {
     <tr scope="row">
             <td rowspan="{{$orden->datos->count()}}">{{$orden->area->organizacion}} </td>
             <td  rowspan="{{$orden->datos->count()}}">{{$orden->area->proPresupuestal}} </td>
-    @foreach( $orden->datos as $dato )
-           <td >{{$dato->partida->codigo_obgasto}}</td>
-           <td>
-               @foreach ($dato->proveedores as $proveedor)
-                <b>•</b> {{$proveedor->rfc}} <br>
-               @endforeach
-           </td>
-            <td>
-               @foreach ($dato->proveedores as $proveedor)
-                <b>•</b> {{$proveedor->nombre}} <br>
-               @endforeach
-           </td>
-           <td>
-               @foreach ($dato->proveedores as $proveedor)
-                <b>•</b> {{$proveedor->concepto}} <br>
-               @endforeach
-           </td>
-           <td>
-               @foreach ($dato->proveedores as $proveedor)
-                <b>•</b> {{$proveedor->importeParcial}} <br>
-               @endforeach
-           </td>
-            <td><b>${{$dato->importePartida}}</b></td>
-        <br><br> </tr>
+            @foreach( $orden->datos as $dato )
+                   <td >{{$dato->partida->codigo_obgasto}}</td>
+                   <td>
+                       @foreach ($dato->proveedores as $proveedor)
+                        <b>•</b> {{$proveedor->rfc}} <br>
+                       @endforeach
+                   </td>
+                    <td>
+                       @foreach ($dato->proveedores as $proveedor)
+                        <b>•</b> {{$proveedor->nombre}} <br>
+                       @endforeach
+                   </td>
+                   <td>
+                       @foreach ($dato->proveedores as $proveedor)
+                        <b>•</b> {{$proveedor->concepto}} <br>
+                       @endforeach
+                   </td>
+                   <td>
+                       @foreach ($dato->proveedores as $proveedor)
+                        <b>•</b> {{$proveedor->importeParcial}} <br>
+                       @endforeach
+                   </td>
+                    <td><b>$ {{$dato->importePartida}}</b></td>
+                        <br><br> 
+    </tr>
+                <tr style="border:unset;border-style: none;">
+            @endforeach
+                   <td colspan="6" style="border:unset;border-style: none;"></td>
+                   <td>TOTAL</td>
+                   <td><b>$ {{$orden->importeOrden}}</b></td>
+                </tr>
+    
 
-    @endforeach
+      
+</table>
 
-       
+
+<table style="text-align:center;width: 100%;border-style: none;">
+    <tr>
+        <td style="border:unset;width: 33%">SOLICITA</td>
+        <td style="border:unset;width: 33%">VO. BO.</td>
+        <td style="border:unset;width: 33%">AUTORIZA EL PAGO</td>
+    </tr>
+    
+    <tr>
+        <td style="border:unset;width: 33%"><u>{{$orden->p1}}</u></td>
+        <td style="border:unset;width: 33%"><u>{{$orden->p2}}</u></td>
+        <td style="border:unset;width: 33%"><u>{{$orden->p3}}</u></td>
+    </tr>
 </table>
