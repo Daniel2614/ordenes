@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ControlfCatmatrizdevengadogastos extends Migration
+class ControlfCatmatrizingresosdeven extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class ControlfCatmatrizdevengadogastos extends Migration
      */
     public function up()
     {
-         Schema::create('controlf_catmatrizdevengadogastos', function (Blueprint $table) {
+         Schema::create('controlf_catmatrizingresosdeven', function (Blueprint $table) {
+           
             $table->increments('id');
-            $table->integer('cog')->nullable();
-            $table->string('nombreCog');
-            $table->integer('tipoG')->nullable();
-            $table->string('caracteristicas');
-            $table->string('cargo');
+            $table->integer('cri')->nullable();
+            $table->string('nombrecri')->nullable();
+            $table->string('caracteristicas')->nullable();
+            $table->string('cargo')->nullable();
             $table->string('cuentaC');
             $table->string('abono');
             $table->string('cuentaAb');
@@ -34,6 +34,6 @@ class ControlfCatmatrizdevengadogastos extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('controlf_catmatrizdevengadogastos');
+        Schema::dropIfExists('controlf_catmatrizingresosdeven');
     }
 }
