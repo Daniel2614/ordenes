@@ -15,15 +15,10 @@ class CreateCentroTrabsTable extends Migration
     {
         Schema::create('centro_trab', function (Blueprint $table) {
            $table->increments('id');
-            $table->integer('ordenUno');
-            $table->integer('ordenDos');
             $table->string('descripcionCT');
-            $table->integer('idAds');
-            $table->string('adscripcion');
-            $table->string('zona');
-            $table->string('distrito');
-            $table->string('clasRNPSP');
             $table->string('cTDepende');
+            $table->integer('idEst')->unsigned()->nullable();
+            $table->foreign('idEst')->references('id')->on('controlf_estructurapresupuestal');
             $table->timestamps();
         });
     }

@@ -5,40 +5,31 @@
    <script src="{{ asset('plugins/select2/select2.min.js') }}"></script>
 @endsection
 @section('content')
-{!! Form::model($ctrabajo, ['id'=>'forminc','route' => ['ct.edit', $ctrabajo->id],'method' => 'PUT']) !!}
+{!! Form::model($ctrabajo, ['id'=>'forminc','route' => ['ct.update', $ctrabajo->id],'method' => 'PUT']) !!}
+<input type="hidden" name="idCtrabajo" value="{{$ctrabajo->id}}">
     <div class="card">
-        <div class="card-header"><h5>Editar registro de centro de trabajo : {{$ctrabajo}}</h5></div>
+        <div class="card-header"><h5>Editar registro de centro de trabajo : {{$ctrabajo->descripcionCT}}</h5></div>
         <div class="card-body">
             <div class="row">
                <div class="col-4 form-group">
-                    {{Form::label('plaza','Plaza:')}}
-                    {{ Form::text('plaza', $ctrabajo->ordenDos, array('class'=>'form-control','title'=>'plaza', 'data-validation' => 'custom', 'data-validation-regexp' => '^([a-záéíóú A-ZÁÉÑÍÓÚ 0-9][\s]*){1,40}$', 'required')) }}
+                    {{Form::label('descripcion','Descripción:')}}
+                    {{ Form::text('descripcion', $ctrabajo->descripcionCT, array('class'=>'form-control','title'=>'Descripción', 'data-validation' => 'custom', 'data-validation-regexp' => '^([a-záéíóú A-ZÁÉÑÍÓÚ 0-9][\s]*){1,40}$', 'required')) }}
                </div>
                <div class="col-4 form-group">
-                   {{Form::label('categoria','Categoría:')}}
-                   {{ Form::text('categoria', old ('categoria'), array('class'=>'form-control','title'=>'categoria', 'data-validation' => 'custom', 'data-validation-regexp' => '^([a-záéíóú A-ZÁÉÑÍÓÚ 0-9][\s]*){1,40}$', 'required')) }}
+                   {{Form::label('area','Área:')}}
+                   {{ Form::text('area',  $ctrabajo->cTDepende, array('class'=>'form-control','title'=>'Área', 'data-validation' => 'custom', 'data-validation-regexp' => '^([a-záéíóú A-ZÁÉÑÍÓÚ 0-9][\s]*){1,40}$', 'required')) }}
                </div>
                <div class="col-4 form-group">
-                   {{Form::label('sindicato','Sindicato:')}}
-                   {{ Form::text('sindicato', old ('sindicato'), array('class'=>'form-control','title'=>'sindicato', 'data-validation' => 'custom', 'data-validation-regexp' => '^([a-záéíóú A-ZÁÉÑÍÓÚ 0-9][\s]*){1,40}$', 'required')) }}
+                   {{Form::label('adscrip','Adscripción:')}}
+                   {{ Form::select('adscrip',$areas,$ctrabajo->area->id,array('id'=>'adscrip','required','class'=>'form-control select2','title'=>'Adscripción')) }}
+                   
                </div> 
+               {!! Form::submit('Actualizar', ['class' => 'btn btn-primary btn-lg','id'=>'actualizarDepto']) !!} 
            
             
         </div>
     </div>
 {!! Form::close() !!}
 
-<script type="text/javascript">
-$(".custom-select2").select2({
-      theme: "classic",
-      language: {
-         noResults: function() {
-         return "No hay resultado";        
-      },
-       searching: function() {
-         return "Buscando..";
-      }
-   }
-});
-</script>
+
 @endsection
