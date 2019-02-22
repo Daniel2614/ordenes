@@ -99,5 +99,8 @@
 			<a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
 					class="fa fa-gears"></i></a>
 		</li> --}} 
+		<li class="nav-item " data-toggle="tooltip" data-placement="bottom" title="Cerrar sesión">
+			<a title="Salir" class="btn  text-white mt-1 btn-sm" data-toggle="modal" data-target="#logoutmodal" ><i class="fas fa-power-off fa-fw fa-lg"></i></a>
+		</li>
 	</ul>
 </nav>

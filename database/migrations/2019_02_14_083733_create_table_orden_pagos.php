@@ -15,6 +15,7 @@ class CreateTableOrdenPagos extends Migration
     {
         Schema::create('orden_pago', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('idDepto')->nullable()->unsigned();
             $table->string('folioCaja')->nullable();
             $table->string('noRecibo')->nullable();
             $table->integer('idArea')->unsigned();

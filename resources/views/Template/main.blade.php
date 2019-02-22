@@ -15,6 +15,8 @@
 
         <link rel="stylesheet" href="{{ asset('admin/dist/css/adminlte.css') }}">
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{asset ('css/font-neosans.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset ('plugins/Font_awesome/all.css')}}">
 
         @yield('css')
     </head>
@@ -51,6 +53,23 @@
                             <div class="container-fluid">
                                 @yield('content')
                                 {{-- @include('layouts.modal_gral') --}}
+            <div class="modal fade " id="logoutmodal" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+                <div class="modal-content rounded col-md-12 px-0">
+                  <div class="modal-header justify-content-center bg-dark"><h4> <i class="fa fa-power-off"></i><strong> Salir</strong></h4></div>
+                  <div class="modal-body text-center bg-dark">
+                    <h5><i class="fas fa-sign-out-alt"></i> ¿Está seguro que desea cerrar sesión?</h5>
+                  </div>
+                  <div class="modal-footer bg-dark">
+                    <a class="btn btn-secondary col " data-dismiss="modal" >Cancelar</a>
+                    <a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="btn btn-secondary col">Salir</a>
+                  </div>
+                    <form id="logout-form" action="{{ url('logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
+                </div>
+              </div>
+            </div>
                             </div>
                         </section>
                     </div>
