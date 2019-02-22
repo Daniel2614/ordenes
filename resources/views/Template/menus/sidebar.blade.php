@@ -29,7 +29,21 @@
 						<li class="nav-item has-treeview" data-widget="tree"><a href="{!! route('ordenes.create') !!}" class="{{ Request::is( 'ordenes/create') ? 'active' : '' }} nav-link"><i class="fas fa-plus"></i><p>&nbsp Nueva órden</p></a>
 						</li>
 						<li class="nav-item has-treeview" data-widget="tree"><a href="{!! route('ordenes.index') !!}" class="{{ Request::is( 'ordenes') ? 'active' : '' }} nav-link"><i class="fas fa-money-check-alt"></i><p>&nbsp Órdenes de pago</p></a>
-						</li>							
+						</li>	
+						<li class="nav-item has-treeview ">
+						<a href="#" class="nav-link ">
+							<i class="nav-icon fa fa-book"></i>
+							<p>
+								Catálogos
+								<i class="right fa fa-angle-left"></i>
+							</p>
+						</a>  
+			            <ul class="nav nav-treeview submenu">
+							<li class="nav-item  submenuitem">
+								<a href="" class="nav-link "><i class="fa fa-user nav-icon submenuitem"></i><p class="submenuitem">Departamentos</p></a>
+							</li>
+						</ul>
+						
 						
 								
 			</ul>

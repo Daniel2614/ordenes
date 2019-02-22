@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CatCuentasSeeder::class);
         $this->call(CatMatrizDevengadoGastosSeeder::class);
         $this->call(CatMatrizIngresosDevenSeeder::class);
+        $this->call(CentroTrabSeeder::class);
 
     }
 }

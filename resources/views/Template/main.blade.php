@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="{{ asset('admin/dist/css/adminlte.css') }}">
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         <link rel="stylesheet" type="text/css" href="{{asset ('css/font-neosans.css')}}">
-        <link rel="stylesheet" type="text/css" href="{{asset ('plugins/Font_awesome/all.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset ('plugins/Font_awesome/css/all.css')}}">
 
         @yield('css')
     </head>
