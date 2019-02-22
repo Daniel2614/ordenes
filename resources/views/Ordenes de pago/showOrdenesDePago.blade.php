@@ -81,7 +81,7 @@
                 <div class="row pb-3">
                     <div class="col-3">
                         {{ Form::label('proPresupuestal', 'PROGRAMA PRESUPUESTAL:') }}
-                        {{ Form::text('proPresupuestal[]',null,array('id'=>'proPresupuestal','required','class'=>'form-control mayuscula'. ( $errors->has('proPresupuestal.*') ? ' is-invalid' : '' ),'title'=>'Programa presupuestal')) }}
+                        {{ Form::text('proPresupuestal[]',null,array('id'=>'proPresupuestal','required','class'=>'form-control mayuscula'. ( $errors->has('proPresupuestal.*') ? ' is-invalid' : '' ),'title'=>'Programa presupuestal', 'disabled')) }}
                         <div id="error_proPresupuestal" class="invalid-feedback">{{ $errors->first('proPresupuestal.*') }}</div>
                     </div>
                     <div class="col-3">
@@ -137,7 +137,7 @@
 @endsection
 
 @section('scripts')
-<script src="{{ asset('plugins/Select2/js/select2.min.js') }}"></script>
+<script src="{{ asset('plugins/Select2/js/select2.full.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         var ordenes = "{{ route('ordenes.index') }}";
@@ -151,10 +151,6 @@
               $(this).siblings('select').select2('open');
             }
         });
-        
-        /*$(document).on('focusout', '.select2-container--open', function (e) {
-            console.log('HOLAAAAA')
-        });*/
 
         $(".decimales").on({
             "focus": function(event) {
@@ -166,6 +162,34 @@
                     .replace(/([0-9])([0-9]{2})$/, '$1.$2')
                     .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",");
                 });
+            }
+        });
+        
+        $(document).on('focus', '#select2-area', function (e) {
+            if( $('#select2-area-container').attr("title") != 'SELECCIONE UNA OPCIÓN' ){
+                $('#select2-area').removeClass('is-invalid');
+                $('#select2-area').addClass('is-valid');
+            }else{
+                $('#select2-area').removeClass('is-valid');
+                $('#select2-area').addClass('is-invalid');
+            }
+        });
+        $(document).on('focus', '#select2-tramite', function (e) {
+            if( $('#select2-tramite-container').attr("title") != 'SELECCIONE UNA OPCIÓN' ){
+                $('#select2-tramite').removeClass('is-invalid');
+                $('#select2-tramite').addClass('is-valid');
+            }else{
+                $('#select2-tramite').removeClass('is-valid');
+                $('#select2-tramite').addClass('is-invalid');
+            }
+        });
+        $(document).on('focus', '#select2-numPartida', function (e) {
+            if( $('#select2-numPartida-container').attr("title") != 'SELECCIONE UNA OPCIÓN' ){
+                $('#select2-numPartida').removeClass('is-invalid');
+                $('#select2-numPartida').addClass('is-valid');
+            }else{
+                $('#select2-numPartida').removeClass('is-valid');
+                $('#select2-numPartida').addClass('is-invalid');
             }
         });
 
@@ -189,7 +213,7 @@
             concepto = concepto + '<div class="row pb-3"><div class="col-12">{{ Form::label("concepto_'+num+'", "CONCEPTO:") }}<textarea class="form-control mayuscula {{ $errors->has("concepto.*") ? " is-invalid" : "" }}" title="Concepto" cols="50" rows="3" name="concepto[]" id="concepto_'+num+'" required></textarea><div id="error_concepto_'+num+'" class="invalid-feedback">{{ $errors->first("concepto.*") }}</div></div></div>';
             concepto = concepto + '</div><hr class="my-1">';
             $("#nuevoConcepto").append(concepto);
-            $(".select2").select2({
+            $("#numPartida_"+num).select2({
                 //theme: "bootstrap4"
             });
             $(".decimales").on({
@@ -204,10 +228,29 @@
                     });
                 }
             });
-            value = $('#numPartida').val();
-            valuePartida = $('#nombrePartida').val();
-            $('#numPartida_'+num).val(value).trigger('change.select2');
-            $('#nombrePartida_'+num).val(valuePartida);
+            //value = $('#numPartida').val();
+            //valuePartida = $('#nombrePartida').val();
+            //$('#numPartida_'+num).val(value).trigger('change.select2');
+            //$('#nombrePartida_'+num).val(valuePartida);
+
+            $(document).on('change', '#numPartida_'+num, function (e) {
+                value = $('#numPartida_'+num).val();
+                $.ajax({
+                    type: 'GET',
+                    url: ordenes+'/getObjetoGasto/'+value,
+                    dataType: 'json',
+                    success: function(data) {
+                        var isMyObjectEmpty = !Object.keys(data).length;
+                        if( isMyObjectEmpty == false ){
+                            $('#nombrePartida_'+num).val(data.nombre_obgasto);
+                        };
+                    },
+                    error: function(data) {
+                        var errors = data.responseJSON;
+                        console.log('NO. '+errors);
+                    }
+                });
+            });
         });
 
         $(document).on('change', '.areas', function (e) {
@@ -220,10 +263,10 @@
                     var isMyObjectEmpty = !Object.keys(data).length;
                     if( isMyObjectEmpty == false ){
                         $('#proPresupuestal').val(data.proPresupuestal);
-                        if( $('#proPresupuestal').val() ){
+                        /*if( $('#proPresupuestal').val() ){
                             $( '#proPresupuestal' ).removeClass('is-invalid');
                             $( '#proPresupuestal' ).addClass('is-valid');
-                        }
+                        }*/
                     }
                 },
                 error: function(data) {
@@ -232,6 +275,7 @@
                 }
             });
         });
+
         $(document).on('change', '.gastos', function (e) {
             value = $('#numPartida').val();
             $.ajax({
