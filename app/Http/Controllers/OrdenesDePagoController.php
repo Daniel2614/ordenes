@@ -74,7 +74,7 @@ class OrdenesDePagoController extends Controller
                 'p2'                => ':V',
                 'p3'                => 'e.e'
             ]);
-            foreach ($request->proPresupuestal as $key => $value) {
+            foreach ($request->numPartida as $key => $value) {
                 $newDatosOrden = datos_orden::create([
                     'idOP'              => $newOrden->id,
                     'idPartida'         => $request->numPartida[$key],

@@ -9,6 +9,28 @@
     Órden de Pago
 @endsection
 @section('content')
+<!------------------------------------------------------------------>
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            {{ $errors }}
+            {{-- $errors->first('rfc.*') --}}
+
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach 
+            <hr class="my-4">
+            @foreach ($errors->get('rfc') as $message)
+                <li>{{ $message }}</li>
+            @endforeach
+            <hr class="my-4">
+            @if ($errors->has('rfc.*'))
+                <p>{{ $errors->first('rfc.*') }}</p>
+            @endif
+        </ul>
+    </div>
+@endif
+<!-------------------------------------------------------------------------->
 <div class="container">
     <div class="card">
         <div class="card-header">
@@ -73,7 +95,7 @@
                     </div>
                     <div class="col-6">
                         {{ Form::label('rpand', 'REALIZAR PAGO A NOMBRE DE:') }}
-                        {{ Form::text('rpand',null,array('class'=>'form-control mayuscula'. ( $errors->has('rpand') ? ' is-invalid' : '' ),'title'=>'Realizar pago a nombre de')) }}
+                        {{ Form::text('rpand',null,array('required','class'=>'form-control mayuscula'. ( $errors->has('rpand') ? ' is-invalid' : '' ),'title'=>'Realizar pago a nombre de')) }}
                         <div id="error_rpand" class="invalid-feedback">{{ $errors->first('rpand') }}</div>
                     </div>
                 </div>
@@ -141,6 +163,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var ordenes = "{{ route('ordenes.index') }}";
+        var errores = "{{ $errors->first('rfc.*') }}";
 
         $(".select2").select2({
             //theme: "bootstrap4"
@@ -294,6 +317,13 @@
                 }
             });
         });
+
+        if( errores ){
+            console.log(errores);
+            $(document).ready(function(){
+                //$('#otroConcepto').trigger('click');
+            });
+        }
     });
 </script>
 @endsection
