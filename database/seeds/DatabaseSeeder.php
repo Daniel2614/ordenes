@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(EstructuraPSeeder::class);
         $this->call(CatCuentasSeeder::class);
         $this->call(CatMatrizPagadoGastosSeeder::class);
-
+        $this->call(CatMatrizDevengadoGastosSeeder::class);
+        $this->call(CatMatrizIngresosDevenSeeder::class);
     }
 }

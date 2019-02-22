@@ -8,12 +8,9 @@ class datos_orden extends Model
 {
     protected $table = 'datos_orden';
 	  protected $fillable = [
-	    'idOP',
-			'programaP',
-			'noPartida',
-			'concepto',
-			'importeParcial',
-			'importetotal',
+	  	'idOP',
+		'idPartida',
+		'importePartida',
 	  ];
 	  public function orden()
    {
@@ -21,6 +18,10 @@ class datos_orden extends Model
    }
    public function proveedores()
    {
-   		return $this->hasMany('App\provBenef');
+   		return $this->hasMany('App\provBenef','idDatosOrden','id');
    }
+    public function partida()
+    {
+      return $this->hasOne('App\CatObjetoGasto','id','idPartida');
+    }
 }

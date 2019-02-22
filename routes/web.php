@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('Ordenes de pago.documentoOrdenPago');
-});
+Route::GET('/',  [ 'uses' => 'HomeController@root' ]);
 
 //Route::get('/orden/{id}','OrdenesDePagoController@orden')->name('ordenpago');
 
@@ -23,4 +21,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/ordenes/getProgramaPresupuestal/{id}','OrdenesDePagoController@get_pp')->name('ordenes.get_pp');
+Route::get('/ordenes/getObjetoGasto/{id}','OrdenesDePagoController@get_og')->name('ordenes.get_og');
 Route::resource('ordenes','OrdenesDePagoController');

@@ -14,6 +14,7 @@ class CatObjetoGastoSeeder extends Seeder
   public function run()
   {
    DB::table('controlf_catobjetogasto')->insert([
+     ['codigo_obgasto' =>	'SELECCIONE UNA OPCIÓN'	, 'nombre_obgasto' => '', 'obgasto_padre' => 	NULL, 'estatus' => true],
      ['codigo_obgasto' =>	10000000	, 'nombre_obgasto' => 'SERVICIOS PERSONALES', 'obgasto_padre' => 	NULL, 'estatus' => true],
      ['codigo_obgasto' =>	11000000	, 'nombre_obgasto' => 'REMUNERACIONES AL PERSONAL DE CARÁCTER PERMANENTE', 'obgasto_padre' => 	1, 'estatus' => true],
      ['codigo_obgasto' =>	11300000	, 'nombre_obgasto' => 'SUELDOS BASE AL PERSONAL PERMANENTE', 'obgasto_padre' => 	2, 'estatus' => true],

@@ -15,7 +15,14 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
-
+    public function root()
+      {
+        // dd(Auth::check());
+        if(Auth::check()){
+          Auth::logout();
+        }
+        return view('login');    
+      }
     /**
      * Show the application dashboard.
      *
