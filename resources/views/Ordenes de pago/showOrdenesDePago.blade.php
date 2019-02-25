@@ -13,19 +13,16 @@
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
-            {{ $errors }}
-            {{-- $errors->first('rfc.*') --}}
-
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach 
             <hr class="my-4">
-            @foreach ($errors->get('rfc') as $message)
-                <li>{{ $message }}</li>
-            @endforeach
-            <hr class="my-4">
-            @if ($errors->has('rfc.*'))
-                <p>{{ $errors->first('rfc.*') }}</p>
+            @if ($errors->has('*'))
+                <?php $count = 0 ?>
+                @foreach($errors->all() as $error)
+                    @if($errors->has('rfc.'. $count .''))
+                        <li>{{ $errors->first('rfc.'.$count.'') }}</li>
+                        <?php $count++ ?>
+                    @endif
+                @endforeach
+                <div class="erroresRequest" id="{{ $count }}"></div>
             @endif
         </ul>
     </div>
@@ -99,28 +96,30 @@
                         <div id="error_rpand" class="invalid-feedback">{{ $errors->first('rpand') }}</div>
                     </div>
                 </div>
+                <!-------------------------------------------------------------------------------------------------------------------------->
                 <hr class="my-4">
                 <div class="row pb-3">
                     <div class="col-3">
                         {{ Form::label('proPresupuestal', 'PROGRAMA PRESUPUESTAL:') }}
-                        {{ Form::text('proPresupuestal[]',null,array('id'=>'proPresupuestal','required','class'=>'form-control mayuscula'. ( $errors->has('proPresupuestal.*') ? ' is-invalid' : '' ),'title'=>'Programa presupuestal', 'disabled')) }}
-                        <div id="error_proPresupuestal" class="invalid-feedback">{{ $errors->first('proPresupuestal.*') }}</div>
+                        {{-- Form::text('proPresupuestal[]',null,array('id'=>'proPresupuestal','value'=>'','required','class'=>'form-control mayuscula'. ( $errors->has('proPresupuestal.0') ? ' is-invalid' : '' ),'title'=>'Programa presupuestal', 'disabled')) --}}
+                        <input type="text" name="proPresupuestal[]" id="proPresupuestal" value="{{ old('proPresupuestal.0') }}" class="form-control{{ $errors->has('proPresupuestal.0') ? ' is-invalid' : '' }}" title="Programa presupuestal" required readonly>
+                        <div id="error_proPresupuestal" class="invalid-feedback">{{ $errors->first('proPresupuestal.0') }}</div>
                     </div>
                     <div class="col-3">
                         {{ Form::label('numPartida', 'NO. DE PARTIDA:') }}
-                        {{ Form::select('numPartida[]',$partidas,null,array('id'=>'numPartida','required','class'=>'form-control soloNumeros select2 gastos'. ( $errors->has('numPartida.*') ? ' is-invalid' : '' ),'title'=>'Número de partida')) }}
-                        <div id="error_numPrtida" class="invalid-feedback">{{ $errors->first('numPartida.*') }}</div>
+                        {{ Form::select('numPartida[]',$partidas,null,array('id'=>'numPartida','required','class'=>'form-control soloNumeros select2 gastos'. ( $errors->has('numPartida.0') ? ' is-invalid' : '' ),'title'=>'Número de partida')) }}
+                        <div id="error_numPrtida" class="invalid-feedback">{{ $errors->first('numPartida.0') }}</div>
                     </div>
                     <div class="col-6">
                         {{ Form::label('nombrePartida', 'NOMBRE DE PARTIDA:') }}
-                        {{ Form::text('nombrePartida[]',null,array('id'=>'nombrePartida','class'=>'form-control mayuscula','title'=>'Nombre de Partida','disabled')) }}
+                        {{ Form::text('nombrePartida[]',null,array('id'=>'nombrePartida','class'=>'form-control mayuscula','title'=>'Nombre de Partida','readonly')) }}
                     </div>
                 </div>
                 <div class="row pb-3">
                     <div class="col-3">
                         {{ Form::label('rfc', 'R.F.C. :') }}
-                        {{ Form::text('rfc[]',null,array('id'=>'rfc','maxlength'=>'15','required','class'=>'form-control mayuscula'. ( $errors->has('rfc.*') ? ' is-invalid' : '' ),'title'=>'R.F.C.')) }}
-                        <div id="error_rfc" class="invalid-feedback">{{ $errors->first('rfc.*') }}</div>
+                        {{ Form::text('rfc[]',null,array('id'=>'rfc','maxlength'=>'15','required','class'=>'form-control mayuscula'. ( $errors->has('rfc.0') ? ' is-invalid' : '' ),'title'=>'R.F.C.')) }}
+                        <div id="error_rfc" class="invalid-feedback">{{ $errors->first('rfc.0') }}</div>
                     </div>
                     <div class="col-3">
                         {{ Form::label('importeParcial', 'IMPORTE PARCIAL:') }}
@@ -128,21 +127,21 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">$</div>
                             </div>                                
-                            {{ Form::text('importeParcial[]',null,array('id'=>'importeParcial','required','class'=>'form-control soloNumeros decimales'. ( $errors->has('importeParcial.*') ? ' is-invalid' : '' ),'title'=>'Importe parcial')) }}
-                            <div id="error_importeParcial" class="invalid-feedback">{{ $errors->first('importeParcial.*') }}</div>
+                            {{ Form::text('importeParcial[]',null,array('id'=>'importeParcial','required','class'=>'form-control soloNumeros decimales'. ( $errors->has('importeParcial.0') ? ' is-invalid' : '' ),'title'=>'Importe parcial')) }}
+                            <div id="error_importeParcial" class="invalid-feedback">{{ $errors->first('importeParcial.0') }}</div>
                         </div>
                     </div>
                     <div class="col-6">
                         {{ Form::label('nombre', 'NOMBRE:') }} 
-                        {{ Form::text('nombre[]',null,array('id'=>'nombre','required','class'=>'form-control mayuscula'. ( $errors->has('nombre.*') ? ' is-invalid' : '' ),'title'=>'Nombre')) }}
-                        <div id="error_nombre" class="invalid-feedback">{{ $errors->first('nombre.*') }}</div>
+                        {{ Form::text('nombre[]',null,array('id'=>'nombre','required','class'=>'form-control mayuscula'. ( $errors->has('nombre.0') ? ' is-invalid' : '' ),'title'=>'Nombre')) }}
+                        <div id="error_nombre" class="invalid-feedback">{{ $errors->first('nombre.0') }}</div>
                     </div>
                 </div>
                 <div class="row pb-3">
                     <div class="col-12">
                         {{ Form::label('concepto', 'CONCEPTO:') }}
-                        {{ Form::textarea('concepto[]',null,array('id'=>'concepto','required','size' => '50x3','class'=>'form-control mayuscula'. ( $errors->has('concepto.*') ? ' is-invalid' : '' ),'title'=>'Concepto')) }}
-                        <div id="error_concepto" class="invalid-feedback">{{ $errors->first('concepto.*') }}</div>
+                        {{ Form::textarea('concepto[]',null,array('id'=>'concepto','required','size' => '50x3','class'=>'form-control mayuscula'. ( $errors->has('concepto.0') ? ' is-invalid' : '' ),'title'=>'Concepto')) }}
+                        <div id="error_concepto" class="invalid-feedback">{{ $errors->first('concepto.0') }}</div>
                     </div>
                 </div>
                 <hr id="plus" class="my-4">
@@ -163,7 +162,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var ordenes = "{{ route('ordenes.index') }}";
-        var errores = "{{ $errors->first('rfc.*') }}";
+        var errores = "{{ $errors->has('*') }}";
 
         $(".select2").select2({
             //theme: "bootstrap4"
@@ -227,14 +226,19 @@
             num=num+1;
             var concepto = '';
             concepto = concepto + '<div id="newConcepto_'+num+'" name="plusConcepto" class="row pb-3">';
-            concepto = concepto + '<div class="col-3">{{ Form::label("proPresupuestal_'+num+'", "PROGRAMA PRESUPUESTAL:") }}<input type="text" value="'+$("#proPresupuestal").val()+'" class="form-control mayuscula {{ $errors->has("proPresupuestal.*") ? " is-invalid" : "" }}" title="Programa presupuestal" name="proPresupuestal[]" id="proPresupuestal_'+num+'" required disabled><div id="error_proPresupuestal_'+num+'" class="invalid-feedback">{{ $errors->first("proPresupuestal.*") }}</div></div>';
-            concepto = concepto + '<div class="col-3">{{ Form::label("numPartida_'+num+'", "N° DE PARTIDA:") }}<select class="form-control select2 {{ $errors->has("numPartida.*") ? " is-invalid" : "" }}" id="numPartida_'+num+'" name="numPartida[]" title="Número de partida"  required>@foreach ($partidas2 as $par)<option value="{{ $par->id }}">{{ $par->codigo_obgasto }}</option>@endforeach</select><div id="error_numPrtida_'+num+'" class="invalid-feddback">{{ $errors->first("numPartida.*") }}</div></div>';
-            concepto = concepto + '<div class="col-6">{{ Form::label("nombrePartida_'+num+'", "NOMBRE DE PARTIDA:") }}<input type="text" name="nombrePartida[]" class="form-control mayuscula" title="Nombre de Partida" id="nombrePartida_'+num+'" disabled></div></div>';
-            concepto = concepto + '<div class="row pb-3"><div class="col-3">{{ Form::label('rfc', 'R.F.C. :') }}<input type="text" maxlength="15" class="form-control mayuscula {{ $errors->has("rfc.*") ? " is-invalid" : "" }}" title="R.F.C." name="rfc[]" id="rfc_'+num+'" required><div id="error_rfc" class="invalid-feedback">{{ $errors->first("rfc.*") }}</div></div>';
-            concepto = concepto + '<div class="col-3">{{ Form::label("importeParcial_'+num+'", "IMPORTE PARCIAL:") }}<div class="input-group mb-2 mr-sm-2"><div class="input-group-prepend"><div class="input-group-text">$</div></div><input type="text" class="form-control soloNumeros decimales {{ $errors->has("importeParcial.*") ? " is-invalid" : "" }}" title="Importe parcial" name="importeParcial[]" id="importeParcial_'+num+'" required><div id="error_importeParcial_'+num+'" class="invalid-feedback">{{ $errors->first("importeParcial.*") }}</div></div></div>';
-            concepto = concepto + '<div class="col-6">{{ Form::label('nombre', 'NOMBRE:') }}<input type="text" class="form-control mayuscula {{ $errors->has("nombre.*") ? " is-invalid" : "" }}" title="Nombre" name="nombre[]" id="nombre_'+num+'" required><div id="error_nombre" class="invalid-feedback">{{ $errors->first("nombre.*") }}</div></div></div>';
-            concepto = concepto + '<div class="row pb-3"><div class="col-12">{{ Form::label("concepto_'+num+'", "CONCEPTO:") }}<textarea class="form-control mayuscula {{ $errors->has("concepto.*") ? " is-invalid" : "" }}" title="Concepto" cols="50" rows="3" name="concepto[]" id="concepto_'+num+'" required></textarea><div id="error_concepto_'+num+'" class="invalid-feedback">{{ $errors->first("concepto.*") }}</div></div></div>';
+            concepto = concepto + '<div class="col-3">{{ Form::label("proPresupuestal_'+num+'", "PROGRAMA PRESUPUESTAL:") }}<input type="text" value="'+$("#proPresupuestal").val()+'" class="form-control mayuscula {{ $errors->has("proPresupuestal.'+num+'") ? " is-invalid" : "" }}" title="Programa presupuestal" name="proPresupuestal[]" id="proPresupuestal_'+num+'" required readonly><div id="error_proPresupuestal_'+num+'" class="invalid-feedback">{{ $errors->first("proPresupuestal.'+num+'") }}</div></div>';
+            concepto = concepto + '<div class="col-3">{{ Form::label("numPartida_'+num+'", "N° DE PARTIDA:") }}<select class="form-control select2 {{ $errors->has("numPartida.'+num+'") ? " is-invalid" : "" }}" id="numPartida_'+num+'" name="numPartida[]" title="Número de partida"  required>@foreach ($partidas2 as $par)<option value="{{ $par->id }}">{{ $par->codigo_obgasto }}</option>@endforeach</select><div id="error_numPrtida_'+num+'" class="invalid-feddback">{{ $errors->first("numPartida.'+num+'") }}</div></div>';
+            concepto = concepto + '<div class="col-6">{{ Form::label("nombrePartida_'+num+'", "NOMBRE DE PARTIDA:") }}<input type="text" name="nombrePartida[]" class="form-control mayuscula" title="Nombre de Partida" id="nombrePartida_'+num+'" readonly></div></div>';
+            concepto = concepto + '<div class="row pb-3"><div class="col-3">{{ Form::label("rfc_'+num+'", "R.F.C. :") }}<input type="text" maxlength="15" class="form-control mayuscula {{ $errors->has("rfc.'+num+'") ? " is-invalid" : "" }}" title="R.F.C." name="rfc[]" id="rfc_'+num+'" required><div id="error_rfc_'+num+'" class="invalid-feedback">{{ $errors->first("rfc.'+num+'") }}</div></div>';
+            concepto = concepto + '<div class="col-3">{{ Form::label("importeParcial_'+num+'", "IMPORTE PARCIAL:") }}<div class="input-group mb-2 mr-sm-2"><div class="input-group-prepend"><div class="input-group-text">$</div></div><input type="text" class="form-control soloNumeros decimales {{ $errors->has("importeParcial.'+num+'") ? " is-invalid" : "" }}" title="Importe parcial" name="importeParcial[]" id="importeParcial_'+num+'" required><div id="error_importeParcial_'+num+'" class="invalid-feedback">{{ $errors->first("importeParcial.'+num+'") }}</div></div></div>';
+            concepto = concepto + '<div class="col-6">{{ Form::label("nombre'+num+'", "NOMBRE:") }}<input type="text" class="form-control mayuscula {{ $errors->has("nombre.'+num+'") ? " is-invalid" : "" }}" title="Nombre" name="nombre[]" id="nombre_'+num+'" required><div id="error_nombre" class="invalid-feedback">{{ $errors->first("nombre.'+num+'") }}</div></div></div>';
+            concepto = concepto + '<div class="row pb-3"><div class="col-12">{{ Form::label("concepto_'+num+'", "CONCEPTO:") }}<textarea class="form-control mayuscula {{ $errors->has("concepto.'+num+'") ? " is-invalid" : "" }}" title="Concepto" cols="50" rows="3" name="concepto[]" id="concepto_'+num+'" required></textarea><div id="error_concepto_'+num+'" class="invalid-feedback">{{ $errors->first("concepto.'+num+'") }}</div></div></div>';
             concepto = concepto + '</div><hr class="my-1">';
+            nums = num.toString()
+            comb = "rfc."+num;
+            console.log('{{ $errors->first("'+comb+'") }}')
+            //console.log("{{-- $errors->first('rfc.'.$count.'') --}}")
+            //console.log('rfc.'+num+'"')
             $("#nuevoConcepto").append(concepto);
             $("#numPartida_"+num).select2({
                 //theme: "bootstrap4"
@@ -319,10 +323,12 @@
         });
 
         if( errores ){
-            console.log(errores);
-            $(document).ready(function(){
-                //$('#otroConcepto').trigger('click');
-            });
+            var errorRequest = $('.erroresRequest').attr("id");
+            if( errorRequest > 0 ){
+                for (i = 1; i < errorRequest; i++) {
+                    $('#otroConcepto').trigger('click');
+                }
+            }
         }
     });
 </script>
