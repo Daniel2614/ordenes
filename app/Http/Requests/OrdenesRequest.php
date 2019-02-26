@@ -37,6 +37,7 @@ class OrdenesRequest extends FormRequest
             'rpand'             => 'required',
             'proPresupuestal.*'   => 'required',
             'numPartida.*'        => 'required',
+            'nombrePartida.*'       => 'required',
             'rfc.*'               => 'required',
             'importeParcial.*'    => 'required',
             'nombre.*'            => 'required',
