@@ -28,3 +28,5 @@ Route::get('/ordenes/getProgramaPresupuestal/{id}','OrdenesDePagoController@get_
 Route::get('/ordenes/getObjetoGasto/{id}','OrdenesDePagoController@get_og')->name('ordenes.get_og');
 Route::get('/departamentos', 'CentroTrabController@index')->name('departamentos');
 Route::resource('ordenes','OrdenesDePagoController');
+Route::get('/tarjetas','TarjetaSolController@index')->name('tarSol.index');
+Route::get('/tarjetas/createTS','TarjetaSolController@create')->name('tarSol.create');

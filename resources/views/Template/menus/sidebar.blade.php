@@ -43,6 +43,8 @@
 								<a href="{!! route('departamentos') !!}" class="nav-link {{ Request::is( 'departamentos') ? 'active' : '' }}"><i class="fa fa-user nav-icon submenuitem "></i><p class="submenuitem">Departamentos</p></a>
 							</li>
 						</ul>
+						<li class="nav-item has-treeview" data-widget="tree"><a href="{!! route('tarSol.index') !!}" class="{{ Request::is( 'tarSol.index') ? 'active' : '' }} nav-link"><i class="fa fa-file navicon submenuitem"></i><p>&nbsp Tarjetas de solicitud</p></a>
+						</li>
 						
 						
 								
