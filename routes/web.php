@@ -21,7 +21,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/Catalogos/editCT/{id}','CentroTrabController@edit')->name('ct.edit');
+Route::get('/Catalogos/createCT/','CentroTrabController@create')->name('ct.create');
 Route::put('/Catalogos/updateCT/{id}','CentroTrabController@update')->name('ct.update');
+Route::post('/Catalogos/storeCT/','CentroTrabController@store')->name('ct.store');
 Route::get('/ordenes/getProgramaPresupuestal/{id}','OrdenesDePagoController@get_pp')->name('ordenes.get_pp');
 Route::get('/ordenes/getObjetoGasto/{id}','OrdenesDePagoController@get_og')->name('ordenes.get_og');
 Route::get('/departamentos', 'CentroTrabController@index')->name('departamentos');

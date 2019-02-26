@@ -4,11 +4,19 @@
     Departamentos
 @endsection
 @section('content')
+
 	<div class="card">
-		<div class="card-header">
-			Tabla de departamentos
+		<div class="card-header ">
+			
+			<div class="row"><div  class="col-md-8">
+				Tabla de departamentos
+			</div>
+			<div class="col-md-2 fa-2x">
+				<a href="{{route('ct.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i> Nuevo Departamento</a>
+			</div></div>
 		</div>
 		<div class="card-body">
+			
 			<div class="table-responsive">
 
 				<table class="table table-bordered">

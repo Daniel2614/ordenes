@@ -1,9 +1,8 @@
 @extends('template.main')
-@section('links')
-   <link rel="stylesheet" type="text/css" href="{{ asset('plugins/select2/select2.css') }}">
-   <script src="{{ asset ('bower_components/jquery/dist/jquery.min.js')}}"></script>
-   <script src="{{ asset('plugins/select2/select2.min.js') }}"></script>
+@section('css')
+   <link rel="stylesheet" type="text/css" href="{{ asset('plugins/Select2/css/select2.css') }}">
 @endsection
+
 @section('content')
 {!! Form::model($ctrabajo, ['id'=>'forminc','route' => ['ct.update', $ctrabajo->id],'method' => 'PUT']) !!}
 <input type="hidden" name="idCtrabajo" value="{{$ctrabajo->id}}">
@@ -21,7 +20,7 @@
                </div>
                <div class="col-4 form-group">
                    {{Form::label('adscrip','Adscripción:')}}
-                   {{ Form::select('adscrip',$areas,$ctrabajo->area->id,array('id'=>'adscrip','required','class'=>'form-control select2','title'=>'Adscripción')) }}
+                   {{ Form::select('adscrip',$areas,$ctrabajo->area->id,array('id'=>'adscrip','required','class'=>'form-control ','title'=>'Adscripción')) }}
                    
                </div> 
                {!! Form::submit('Actualizar', ['class' => 'btn btn-primary btn-lg','id'=>'actualizarDepto']) !!} 
@@ -32,4 +31,10 @@
 {!! Form::close() !!}
 
 
+@endsection
+@section('scripts')
+<script src="{{ asset('plugins/Select2/js/select2.min.js') }}"></script>
+<script>
+  $('#adscrip').select2();
+</script>
 @endsection
