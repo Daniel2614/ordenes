@@ -9,6 +9,28 @@
     Órden de Pago
 @endsection
 @section('content')
+@if ($errors->any())
+    <!--<div class="alert alert-danger">
+        <ul>-->
+            @if ($errors->has('*'))
+                <?php $count = 0 ?>
+                @foreach($errors->all() as $error)
+                    @if($errors->has('proPresupuestal.'. $count .'') || $errors->has('idPartida.'. $count .'') || $errors->has('nombrePartida.'. $count .'') || $errors->has('rfc.'. $count .'') || $errors->has('importeParcial.'. $count .'') || $errors->has('nombre.'. $count .'') || $errors->has('concepto.'. $count .''))
+                        <!--<li>{{-- $errors->first('proPresupuestal.'.$count.'') --}}</li>
+                        <li>{{-- $errors->first('idPartida.'.$count.'') --}}</li>
+                        <li>{{-- $errors->first('nombrePartida.'.$count.'') --}}</li>
+                        <li>{{-- $errors->first('rfc.'.$count.'') --}}</li>
+                        <li>{{-- $errors->first('importeParcial.'.$count.'') --}}</li>
+                        <li>{{-- $errors->first('nombre.'.$count.'') --}}</li>
+                        <li>{{-- $errors->first('concepto.'.$count.'') --}}</li>-->
+                        <?php $count++ ?>
+                    @endif
+                @endforeach
+                <div class="erroresRequest" id="{{ $count }}"></div>
+            @endif
+        <!--</ul>
+    </div>-->
+@endif
 <div class="container">
     <div class="card">
         <div class="card-header">
@@ -83,17 +105,17 @@
                     <div class="col-3">
                         {{ Form::label('proPresupuestal', 'PROGRAMA PRESUPUESTAL:') }}
                         {{ Form::text('proPresupuestal[]',null,array('id'=>'proPresupuestal','required','class'=>'form-control mayuscula'. ( $errors->has('proPresupuestal.0') ? ' is-invalid' : '' ),'title'=>'Programa presupuestal','required','readonly')) }}
-                        <!--<input type="text" name="proPresupuestal[]" id="proPresupuestal" value="{{ old('proPresupuestal.0') }}" class="form-control{{ $errors->has('proPresupuestal.0') ? ' is-invalid' : '' }}" title="Programa presupuestal" required readonly>-->
                         <div id="error_proPresupuestal" class="invalid-feedback">{{ $errors->first('proPresupuestal.0') }}</div>
                     </div>
                     <div class="col-3">
-                        {{ Form::label('numPartida', 'NO. DE PARTIDA:') }}
-                        {{ Form::select('numPartida[]',$partidas,null,array('id'=>'numPartida','required','class'=>'form-control soloNumeros select2 gastos'. ( $errors->has('numPartida.0') ? ' is-invalid' : '' ),'title'=>'Número de partida')) }}
-                        <div id="error_numPrtida" class="invalid-feedback">{{ $errors->first('numPartida.0') }}</div>
+                        {{ Form::label('idPartida', 'NO. DE PARTIDA:') }}
+                        {{ Form::select('idPartida[]',$partidas,null,array('id'=>'idPartida','class'=>'form-control select2 gastos'. ( $errors->has('idPartida.0') ? ' is-invalid' : '' ),'title'=>'Número de partida','required')) }}
+                        <div id="error_numPartida" class="invalid-feedback">{{ $errors->first('idPartida.0') }}</div>
                     </div>
                     <div class="col-6">
                         {{ Form::label('nombrePartida', 'NOMBRE DE PARTIDA:') }}
-                        {{ Form::text('nombrePartida[]',null,array('id'=>'nombrePartida','class'=>'form-control mayuscula','title'=>'Nombre de Partida','readonly')) }}
+                        {{ Form::text('nombrePartida[]',null,array('id'=>'nombrePartida','class'=>'form-control mayuscula'. ( $errors->has('nombrePartida.0') ? ' is-invalid' : '' ),'title'=>'Nombre de Partida','required','readonly')) }}
+                        <div id="error_nombrePartida" class="invalid-feedback">{{ $errors->first('nombrePartida.0') }}</div>
                     </div>
                 </div>
                 <div class="row pb-3">
@@ -132,7 +154,7 @@
                         @if ($errors->has('*'))
                             <?php $count = 1 ?>
                             @foreach($errors->all() as $error)
-                                @if($errors->has('rfc.'. $count .''))
+                                @if($errors->has('proPresupuestal.'. $count .'') || $errors->has('idPartida.'. $count .'') || $errors->has('nombrePartida.'. $count .'') || $errors->has('rfc.'. $count .'') || $errors->has('importeParcial.'. $count .'') || $errors->has('nombre.'. $count .'') || $errors->has('concepto.'. $count .''))
                                     <!--<li>{{-- $errors->first('rfc.'.$count.'') --}}</li>-->
                                         <div id="newConcepto_{{$count}}" name="plusConcepto" class="row pb-3">
                                             <div class="col-3">
@@ -141,13 +163,13 @@
                                                 <div id="error_proPresupuestal_{{$count}}" class="invalid-feedback">{{ $errors->first('proPresupuestal.'.$count.'') }}</div>
                                             </div>
                                             <div class="col-3">
-                                                {{ Form::label('numPartida_'.$count.'', 'NO. DE PARTIDA:') }}
-                                                {{ Form::select('numPartida[]',$partidas,null,array('id'=>'numPartida_'.$count.'','required','class'=>'form-control soloNumeros select2 gastos'. ( $errors->has('numPartida.'.$count.'') ? ' is-invalid' : '' ),'title'=>'Número de partida')) }}
-                                                <div id="error_numPrtida_{{$count}}" class="invalid-feedback">{{ $errors->first('numPartida.'.$count.'') }}</div>
+                                                {{ Form::label('idPartida_'.$count.'', 'NO. DE PARTIDA:') }}
+                                                {{ Form::select('idPartida[]',$partidas,null,array('id'=>'idPartida_'.$count.'','required','class'=>'form-control select2 gastos'. ( $errors->has('idPartida.'.$count.'') ? ' is-invalid' : '' ),'title'=>'Número de partida')) }}
+                                                <div id="error_numPartida_{{$count}}" class="invalid-feedback">{{ $errors->first('idPartida.'.$count.'') }}</div>
                                             </div>
                                             <div class="col-6">
                                                 {{ Form::label('nombrePartida_'.$count.'', 'NOMBRE DE PARTIDA:') }}
-                                                {{ Form::text('nombrePartida[]',null,array('id'=>'nombrePartida_'.$count.'','class'=>'form-control mayuscula'.( $errors->has('nombrePartida.'.$count.'') ? 'is-invalid' : '' ),'title'=>'Nombre de Partida','required','readonly')) }}
+                                                {{ Form::text('nombrePartida[]',null,array('id'=>'nombrePartida_'.$count.'','class'=>'form-control mayuscula'. ( $errors->has('nombrePartida.'.$count.'') ? ' is-invalid' : '' ),'title'=>'Nombre de Partida','required','readonly')) }}
                                                 <div id="error_nombrePartida_{{$count}}" class="invalid-feedback">{{ $errors->first('nombrePartida.'.$count.'') }}</div>
                                             </div>
                                         </div>
@@ -240,21 +262,23 @@
             if( $('#select2-tramite-container').attr("title") != 'SELECCIONE UNA OPCIÓN' ){
                 $('#select2-tramite').removeClass('is-invalid');
                 $('#select2-tramite').addClass('is-valid');
+                $('#error_tramite').hide();
             }else{
                 $('#select2-tramite').removeClass('is-valid');
                 $('#select2-tramite').addClass('is-invalid');
+                $('#error_tramite').show();
             }
         });
-        $(document).on('focus', '#select2-numPartida', function (e) {
-            if( $('#select2-numPartida-container').attr("title") != 'SELECCIONE UNA OPCIÓN' ){
-                $('#select2-numPartida').removeClass('is-invalid');
-                $('#select2-numPartida').addClass('is-valid');
+        $(document).on('focus', '#select2-idPartida', function (e) {
+            if( $('#select2-idPartida-container').attr("title") != 'SELECCIONE UNA OPCIÓN' ){
+                $('#select2-idPartida').removeClass('is-invalid');
+                $('#select2-idPartida').addClass('is-valid');
             }else{
-                $('#select2-numPartida').removeClass('is-valid');
-                $('#select2-numPartida').addClass('is-invalid');
+                $('#select2-idPartida').removeClass('is-valid');
+                $('#select2-idPartida').addClass('is-invalid');
             }
         });
-
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         $("#otroConcepto").click(function(){
             var divs=document.getElementsByTagName('div');
             var num=0;
@@ -267,7 +291,7 @@
             var concepto = '';
             concepto = concepto + '<div id="newConcepto_'+num+'" name="plusConcepto" class="row pb-3">';
             concepto = concepto + '<div class="col-3">{{ Form::label("proPresupuestal_'+num+'", "PROGRAMA PRESUPUESTAL:") }}<input type="text" value="'+$("#proPresupuestal").val()+'" class="form-control mayuscula {{ $errors->has("proPresupuestal.'+num+'") ? " is-invalid" : "" }}" title="Programa presupuestal" name="proPresupuestal[]" id="proPresupuestal_'+num+'" required readonly><div id="error_proPresupuestal_'+num+'" class="invalid-feedback">{{ $errors->first("proPresupuestal.'+num+'") }}</div></div>';
-            concepto = concepto + '<div class="col-3">{{ Form::label("numPartida_'+num+'", "N° DE PARTIDA:") }}<select class="form-control select2 {{ $errors->has("numPartida.'+num+'") ? " is-invalid" : "" }}" id="numPartida_'+num+'" name="numPartida[]" title="Número de partida"  required>@foreach ($partidas2 as $par)<option value="{{ $par->id }}">{{ $par->codigo_obgasto }}</option>@endforeach</select><div id="error_numPrtida_'+num+'" class="invalid-feddback">{{ $errors->first("numPartida.'+num+'") }}</div></div>';
+            concepto = concepto + '<div class="col-3">{{ Form::label("idPartida_'+num+'", "N° DE PARTIDA:") }}<select class="form-control select2 {{ $errors->has("idPartida.'+num+'") ? " is-invalid" : "" }}" id="idPartida_'+num+'" name="idPartida[]" title="Número de partida"  required>@foreach ($partidas2 as $par)<option value="{{ $par->id }}">{{ $par->codigo_obgasto }}</option>@endforeach</select><div id="error_numPartida_'+num+'" class="invalid-feddback">{{ $errors->first("idPartida.'+num+'") }}</div></div>';
             concepto = concepto + '<div class="col-6">{{ Form::label("nombrePartida_'+num+'", "NOMBRE DE PARTIDA:") }}<input type="text" name="nombrePartida[]" class="form-control mayuscula" title="Nombre de Partida" id="nombrePartida_'+num+'" readonly></div></div>';
             concepto = concepto + '<div class="row pb-3"><div class="col-3">{{ Form::label("rfc_'+num+'", "R.F.C. :") }}<input type="text" maxlength="15" class="form-control mayuscula {{ $errors->has("rfc.'+num+'") ? " is-invalid" : "" }}" title="R.F.C." name="rfc[]" id="rfc_'+num+'" required><div id="error_rfc_'+num+'" class="invalid-feedback">{{ $errors->first("rfc.'+num+'") }}</div></div>';
             concepto = concepto + '<div class="col-3">{{ Form::label("importeParcial_'+num+'", "IMPORTE PARCIAL:") }}<div class="input-group mb-2 mr-sm-2"><div class="input-group-prepend"><div class="input-group-text">$</div></div><input type="text" class="form-control soloNumeros decimales {{ $errors->has("importeParcial.'+num+'") ? " is-invalid" : "" }}" title="Importe parcial" name="importeParcial[]" id="importeParcial_'+num+'" required><div id="error_importeParcial_'+num+'" class="invalid-feedback">{{ $errors->first("importeParcial.'+num+'") }}</div></div></div>';
@@ -275,7 +299,7 @@
             concepto = concepto + '<div class="row pb-3"><div class="col-12">{{ Form::label("concepto_'+num+'", "CONCEPTO:") }}<textarea class="form-control mayuscula {{ $errors->has("concepto.'+num+'") ? " is-invalid" : "" }}" title="Concepto" cols="50" rows="3" name="concepto[]" id="concepto_'+num+'" required></textarea><div id="error_concepto_'+num+'" class="invalid-feedback">{{ $errors->first("concepto.'+num+'") }}</div></div></div>';
             concepto = concepto + '</div><hr class="my-1">';
             $("#nuevoConcepto").append(concepto);
-            $("#numPartida_"+num).select2({
+            $("#idPartida_"+num).select2({
                 //theme: "bootstrap4"
             });
             $(".decimales").on({
@@ -291,8 +315,8 @@
                 }
             });
 
-            $(document).on('change', '#numPartida_'+num, function (e) {
-                value = $('#numPartida_'+num).val();
+            $(document).on('change', '#idPartida_'+num, function (e) {
+                value = $('#idPartida_'+num).val();
                 $.ajax({
                     type: 'GET',
                     url: ordenes+'/getObjetoGasto/'+value,
@@ -309,8 +333,17 @@
                     }
                 });
             });
+            $(document).on('focus', '#select2-idPartida_'+num, function (e) {
+                if( $('#select2-idPartida_'+num+'-container').attr("title") != 'SELECCIONE UNA OPCIÓN' ){
+                    $('#select2-idPartida_'+num).removeClass('is-invalid');
+                    $('#select2-idPartida_'+num).addClass('is-valid');
+                }else{
+                    $('#select2-idPartida_'+num).removeClass('is-valid');
+                    $('#select2-idPartida_'+num).addClass('is-invalid');
+                }
+            });
         });
-
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         $(document).on('change', '.areas', function (e) {
             value = $('#area').val();
             $.ajax({
@@ -334,8 +367,8 @@
             });
         });
 
-        $(document).on('change', '.gastos', function (e) {
-            value = $('#numPartida').val();
+        $(document).on('change', '#idPartida', function (e) {
+            value = $('#idPartida').val();
             $.ajax({
                 type: 'GET',
                 url: ordenes+'/getObjetoGasto/'+value,

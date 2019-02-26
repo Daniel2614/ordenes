@@ -24,25 +24,25 @@ class OrdenesRequest extends FormRequest
     public function rules()
     {
         return [
-            'area'              => 'required',
-            'tramite'           => 'required',
-            'numTramite'        => 'required',
-            'fechaElaboracion'  => 'required',
-            //'oc'                => 'required',
-            //'fechaOC'           => 'required',
-            'importeOrden'      => 'required',
-            //'letraImporte'      => 'required',
-            //'recepcion'         => 'required',
-            //'fechaRecepcion'    => 'required',
-            'rpand'             => 'required',
-            'proPresupuestal.*'   => 'required',
-            'numPartida.*'        => 'required',
+            'area'                  => 'required',
+            'tramite'               => 'required',
+            'numTramite'            => 'required',
+            'fechaElaboracion'      => 'required',
+            //'oc'                  => 'required',
+            //'fechaOC'             => 'required',
+            'importeOrden'          => 'required',
+            //'letraImporte'        => 'required',
+            //'recepcion'           => 'required',
+            //'fechaRecepcion'      => 'required',
+            'rpand'                 => 'required',
+            'proPresupuestal.*'     => 'required',
+            'idPartida.*'           => 'required',
             'nombrePartida.*'       => 'required',
-            'rfc.*'               => 'required',
-            'importeParcial.*'    => 'required',
-            'nombre.*'            => 'required',
-            //'organizacion'      => 'required',
-            'concepto.*'          => 'required'
+            'rfc.*'                 => 'required',
+            'importeParcial.*'      => 'required',
+            'nombre.*'              => 'required',
+            //'organizacion'        => 'required',
+            'concepto.*'            => 'required'
         ];
     }
 }

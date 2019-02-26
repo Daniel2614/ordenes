@@ -74,10 +74,14 @@ class OrdenesDePagoController extends Controller
                 'p2'                => ':V',
                 'p3'                => 'e.e'
             ]);
-            foreach ($request->numPartida as $key => $value) {
+            foreach ($request->idPartida as $key => $value) {
+                if( $request->idPartida[$key] == 1 ){
+                    $request->idPartida[$key] = null;
+                    dd($request->idPartida[$key]);
+                }
                 $newDatosOrden = datos_orden::create([
                     'idOP'              => $newOrden->id,
-                    'idPartida'         => $request->numPartida[$key],
+                    'idPartida'         => $request->idPartida[$key],
                     'importePartida'    => $request->importeParcial[$key],
                     //'programaP'         => $value,
                     //'noPartida'         => $request->numPartida[$key],
@@ -144,7 +148,9 @@ class OrdenesDePagoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $orden = OrdenPago::with('datos.proveedores')->find($id);
+        //dd($orden->toArray());
+        return view('Ordenes de pago.editOrdenDePago',compact('orden'));
     }
 
     /**
